@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="Home" controller="Home" action="Index">
+    <mvcSiteMapNode title="Masters" controller="Home" action="Index">
+      <mvcSiteMapNode title="Config" controller="Configs" action="Edit" preservedRouteParameters="id" />
+      <mvcSiteMapNode title="Allowance Types" controller="AllowanceTypes" action="Index" />
+      <mvcSiteMapNode title="Employee Types" controller="EmpTypes" action="Index" />
+      <mvcSiteMapNode title="Document Types" controller="EDocTypes" action="Index" />
+      <mvcSiteMapNode title="Grant Privilages" controller="Account" action="GivePrivilage" />
+    </mvcSiteMapNode>
+    
+    <mvcSiteMapNode title="Employees" controller="Employees" action="Index" >
+      <mvcSiteMapNode title="Documents" controller="EmpDocs" action="Index" preservedRouteParameters="EmpID" />
+      <mvcSiteMapNode title="Employment Histories" controller="EmploymentHistories" action="Index" preservedRouteParameters="EmpID" />
+      <mvcSiteMapNode title="Wages" controller="Wages" action="Index" preservedRouteParameters="EmpID" />
+      <mvcSiteMapNode title="Attendances" controller="Attendances" action="RollCall" preservedRouteParameters="id" />
+      <mvcSiteMapNode title="Loans" controller="Loans" action="Index" preservedRouteParameters="EmpID" />
+      <mvcSiteMapNode title="Advances" controller="Advances" action="Index" preservedRouteParameters="EmpID" />
+      <mvcSiteMapNode title="Daily Allowance" controller="Employees" action="DailyAllow" preservedRouteParameters="dt" />
+    </mvcSiteMapNode>
+
+  </mvcSiteMapNode>
+
+
+</mvcSiteMap>
