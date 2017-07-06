@@ -1,0 +1,55 @@
+﻿@model IEnumerable<NunesHR.LoanSkip>
+
+
+@{
+    ViewBag.Title = NunesHR.MyExtensions.GetTitle(GetType().Name);
+}
+
+<h2>@NunesHR.MyExtensions.CamelToSentence(ViewBag.Title)</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Loans.Employees.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Loans.LoanID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reason)
+        </th>        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Loans.Employees.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Loans.LoanID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PayDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reason)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LoanSkipID }) |
+
+        </td>
+    </tr>
+}
+
+</table>

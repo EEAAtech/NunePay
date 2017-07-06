@@ -1,0 +1,42 @@
+﻿@model IEnumerable<int>
+
+@{
+    ViewBag.Title = "Attendance Register";
+}
+
+<h2>@ViewBag.Emptype Attendance Register for @MyExtensions.MonthFromInt((int) @ViewBag.mon), @ViewBag.yr</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            @{
+                int dim = DateTime.DaysInMonth((int)ViewBag.yr, (int)ViewBag.mon);
+                for (int i = 1; i <= dim; i++)
+                {
+                    <th>@DateTime.Parse(i + "/" + (int)ViewBag.mon + "/" + (int)ViewBag.yr).DayOfWeek.ToString().Substring(0,1) </th>
+                }
+            }
+            <th></th>
+        </tr>
+        <tr>
+            <th>Employee Name</th>
+            @{ 
+                dim = DateTime.DaysInMonth((int)ViewBag.yr, (int)ViewBag.mon);
+                for (int i = 1; i <= dim; i++)
+                {
+                    <th>@i</th>
+                }
+            }
+            <th>=</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (int emp in Model)
+        {
+            
+            <tr>@Html.Action("AttendanceReg", new { EmpID = emp, mon = @ViewBag.mon, yr = @ViewBag.yr })</tr>
+        }
+    </tbody>
+</table>
+<hr />
+Generation Date: @DateTime.Now.ToString("dd-MMM-yyyy HH:mm")

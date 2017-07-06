@@ -1,0 +1,61 @@
+﻿@model PagedList.IPagedList<NunesHR.Advance>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+
+
+@{
+    ViewBag.Title = NunesHR.MyExtensions.GetTitle(GetType().Name);
+}
+
+<h2>@NunesHR.MyExtensions.CamelToSentence(ViewBag.Title)</h2>
+@Html.Action("EmpDets", new { EmpID = ViewBag.EmpID })
+<p>
+    @if (ViewBag.EmpID != null)
+    {
+        <a href="~/Advances/Create/@ViewBag.EmpID">Create</a>
+    }
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().AdvDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Employees.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdvDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employees.Name)
+        </td>
+        <td>
+                     
+            
+        </td>
+    </tr>
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<div>
+    @Html.ActionLink("Back to Employee Details", "Edit", "Employees", new { id = ViewBag.EmpID }, null)
+</div>

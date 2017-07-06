@@ -1,0 +1,85 @@
+﻿@model IEnumerable<NunesHR.EmploymentHistory>
+
+
+@{
+    ViewBag.Title = NunesHR.MyExtensions.GetTitle(GetType().Name);
+}
+
+<h2>@NunesHR.MyExtensions.CamelToSentence(ViewBag.Title)</h2>
+@Html.Action("EmpDets", new { EmpID = ViewBag.EmpID })
+<p>
+    @if (!ViewBag.NoCreate)
+    {
+        if (ViewBag.EmpID == null)
+        {
+        <a href="~/EmploymentHistories/Create">Create</a>
+        }
+        else
+        {
+        <a href="~/EmploymentHistories/Create/@ViewBag.EmpID">Create</a>
+        }
+    }
+</p>
+
+@using (Html.BeginForm("Index", "EmploymentHistories", FormMethod.Get))
+{
+    <p>
+        Find by First-name or Nickname of employee: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JoinDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExitDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExitReason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employees.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.JoinDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExitDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExitReason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employees.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EHID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EHID }) 
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    @Html.ActionLink("Back to Employee Details", "Edit", "Employees", new { id = ViewBag.EmpID }, null)
+</div>

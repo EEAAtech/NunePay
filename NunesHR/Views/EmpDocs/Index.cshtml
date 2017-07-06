@@ -1,0 +1,82 @@
+﻿@model IEnumerable<NunesHR.EmpDocs>
+
+@{
+    ViewBag.Title = NunesHR.MyExtensions.GetTitle(GetType().Name);
+}
+
+<h2>@NunesHR.MyExtensions.CamelToSentence(ViewBag.Title) </h2>
+
+@Html.Action("EmpDets", new { EmpID = ViewBag.EmpID })
+
+<p>
+    @if (ViewBag.EmpID == null)
+    {
+        <a href="~/EmpDocs/Create">Create</a>
+    }
+    else
+    {
+        <a href="~/EmpDocs/Create/@ViewBag.EmpID" >Add Document</a>        
+    }
+    
+</p>
+
+@using (Html.BeginForm("Index", "EmpDocs", FormMethod.Get))
+{
+    <p>
+        Find by First-name or Nickname of employee: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EDocTypes.EDocType)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Employees.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Renewed)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpiryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EDocTypes.EDocType)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Employees.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Renewed)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EDID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EDID }) |
+            
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to Employee Details","Edit","Employees",new { id = ViewBag.EmpID },null)
+</div>

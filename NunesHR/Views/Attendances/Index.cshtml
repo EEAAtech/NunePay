@@ -1,0 +1,77 @@
+﻿@model IList<NunesHR.LeaveDays>
+
+@{
+    ViewBag.Title = "Roll Call";
+}
+<style>
+    input[type=checkbox] {
+        display:none;
+       padding-right:30px !important;
+    }
+
+    label {
+        padding-left:0px !important;
+        max-width: 150px !important;
+        width: 150px !important;
+    }
+</style>
+
+@using (Html.BeginForm("Create", "Attendances", FormMethod.Post))
+{
+<h2>Leave data  &nbsp;&nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default" /></h2>
+    @:Kindly mark the dates when @ViewBag.Emp.Name was absent
+    @Html.Action("EmpDets", new { EmpID = ViewBag.Emp.EmpID })
+<div>
+    @Html.ActionLink("Back to Employee Details", "Edit", "Employees", new { id = ViewBag.Emp.EmpID }, null)
+</div>
+
+    @Html.AntiForgeryToken()
+    
+    @Html.Hidden("EmpID", (int)ViewBag.Emp.EmpID)
+    @*<div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            
+        </div>
+    </div>*@
+    <p>&nbsp;</p>
+    <table class="table table-bordered">
+        <tr>
+            <th><h3>@ViewBag.Mon1</h3></th>
+            <th><h3>@ViewBag.Mon2</h3></th>
+        </tr>
+        <tr>
+            <td>
+                @{ int CurMonDay = 0; }
+                @for (int i = 0; i < @ViewBag.DaysInStartMon; i++)
+                {
+                    CurMonDay++;
+                    <div class="checkbox" style="margin-left:30px;">
+                        <label for="@Model[i].Dayt.ToString("dd-MM-yyyy")">Day @CurMonDay</label>
+                        <input name=@Model[i].Dayt class="check-box" id=@Model[i].Dayt type="checkbox" checked=@Model[i].IsLeave value=@Model[i].IsLeave>
+                    </div>
+                }
+            </td>
+
+            <td>
+                @{ CurMonDay = 0; }
+                @for (int i = @ViewBag.DaysInStartMon; i < Model.Count; i++)
+                {
+                    CurMonDay++;
+                    <div class="checkbox" style="margin-left:30px;">
+                        <label for="@Model[i].Dayt.ToString("dd-MM-yyyy")">Day @CurMonDay   </label>
+                        <input name=@Model[i].Dayt class="check-box" id=@Model[i].Dayt type="checkbox" checked=@Model[i].IsLeave value=@Model[i].IsLeave>
+                    </div>
+                }
+            </td>
+        </tr>
+    </table>
+
+                    }
+
+<script>
+    $(function () {
+        $('input[type=checkbox]').checkboxradio({
+            icon: false
+        });
+    });
+</script>

@@ -1,0 +1,35 @@
+﻿@model NunesHR.EmpTypes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Emp. Types</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmpType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmpType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasDailyAllowance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasDailyAllowance)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmpTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

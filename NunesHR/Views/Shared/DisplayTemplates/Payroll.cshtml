@@ -1,0 +1,88 @@
+﻿@model NunesHR.Payroll
+@if (Model != null)
+{
+    decimal Salary = 0;
+    
+    <h3>@if (Model.BankName.StartsWith("R"))
+    { <img height="15px;" src="~/star.png" />} &nbsp;
+    Nunes Travels: @ViewBag.MonYr For Employee ID: @Html.DisplayFor(model => model.EmpID)</h3>
+    @: Generation Date: @DateTime.Now.ToString("dd-MMM-yyyy HH:mm")
+    
+
+    <table class="table table-condensed">
+        <tr>
+            <td width="10%">@Html.DisplayNameFor(model => model.Employees.Name) :</td>
+            <td width="40%"><strong>@Html.DisplayFor(model => model.Employees.Name)</strong></td>
+            <td width="15%" style="border-left:solid thin">Job :</td>
+            <td width="35%">@Html.DisplayFor(model => model.Employees.EmpTypes.EmpType) &nbsp; : @Html.DisplayFor(model => model.Employees.JobTitle) </td>        
+        </tr>
+        <tr>
+            <td width="10%">@Html.DisplayNameFor(model => model.Wages) :</td>
+            <td>@Html.DisplayFor(model => model.Wages)</td>
+            <td width="15%" style="border-left:solid thin">@Html.DisplayNameFor(model => model.DaysWorked) :</td>
+            <td>@Html.DisplayFor(model => model.DaysWorked)</td>
+        </tr>
+        <tr>
+            <td width="10%">@Html.DisplayNameFor(model => model.Allowance) :</td>
+            <td>@Html.DisplayFor(model => model.Allowance)</td>
+            <td width="15%" style="border-left:solid thin">@Html.DisplayNameFor(model => model.Advance) :</td>
+            <td>@Html.DisplayFor(model => model.Advance)</td>
+        </tr>
+        <tr>
+            <td width="10%"></td>
+            <td></td>
+            <td width="15%" style="border-left:solid thin">@Html.DisplayNameFor(model => model.LoanAmt) :</td>
+            <td>
+                @Html.DisplayFor(model => model.LoanAmt)
+            @Html.DisplayFor(model => model.LoanCmt)
+        </td>
+    </tr>
+    <tr>
+        <td width="10%">@Html.DisplayNameFor(model => model.BankName) :</td>
+        <td>@Model.BankName.Substring(1) </td>
+        <td width="15%" style="border-left:solid thin">@Html.DisplayNameFor(model => model.BankAccount) :</td>
+        <td>@Html.DisplayFor(model => model.BankAccount)</td>
+    </tr>
+
+    @{
+        Salary = (decimal)Model.Total;
+        if (Model.AdjAmt != null)
+        {
+            Salary += Model.AdjAmt ?? 0;
+            <tr>
+                <td width="10%">@Html.DisplayNameFor(model => model.AdjAmt) :</td>
+                <td>@Html.DisplayFor(model => model.AdjAmt)</td>
+                <td width="15%" style="border-left:solid thin">@Html.DisplayNameFor(model => model.AdjRemark) :</td>
+                <td>@Html.DisplayFor(model => model.AdjRemark)</td>
+            </tr>
+        }
+    }
+
+</table>
+
+
+    IEnumerable<NunesHR.PayrollAllowance> pa = (IEnumerable<NunesHR.PayrollAllowance>)ViewBag.Allw;
+    pa = pa.Where(p => p.EmpID == Model.EmpID);
+
+        <table style="display:inline; float:left;" width="40%">
+            <tr>
+                <td style="border-right: groove thin; padding-right:10px;"><B>Allowances: </B></td>
+                <td style="padding-left:5px !important;">
+                    @foreach (var item in pa)
+                    {
+                        @Html.DisplayFor(model => item.AllowanceTypes.AllowanceType)
+                        @:  : &nbsp;
+                        @Html.DisplayFor(model => item.Amount) <br />
+                    }
+                </td>
+                
+            </tr>
+        </table>
+    
+
+    <h3 style="display:inline; float:right;">Total salary: Rs. &nbsp; @Html.DisplayFor(model => model.Total)</h3>
+    
+    <p style="display:block;" >&nbsp;</p>
+    <p style="display:block;">&nbsp;</p>
+    <hr style="border-bottom: dotted; border-top:none;" />
+}

@@ -1,0 +1,54 @@
+﻿@model PagedList.IPagedList<NunesHR.Bonus>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Previous Bonus";
+}
+
+<h2>Bonus for year: @ViewBag.yr</h2>
+<ul class="pager">
+    @{ ViewBag.yr--; }
+    <li><a href="~/Bonuses/OldBonus?yr=@ViewBag.yr">Previous</a></li>
+    @{ ViewBag.yr+=2; }
+    <li><a href="~/Bonuses/OldBonus?yr=@ViewBag.yr">Next</a></li>
+    @{ ViewBag.yr--; }
+</ul> 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Employees.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SysBonus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UsrBonus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employees.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SysBonus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsrBonus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id= item.EmpID, yr = item.Year }) |
+            
+            
+        </td>
+    </tr>
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("OldBonus",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter , yr = ViewBag.yr}))

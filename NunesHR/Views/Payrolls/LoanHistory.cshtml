@@ -1,0 +1,121 @@
+﻿@model NunesHR.EmpLoanHistory
+
+@{
+    ViewBag.Title = "Loan History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Loan History for EmpID: @ViewBag.EmpID</h2>
+Generation Date: @DateTime.Now.ToString("dd-MMM-yyyy HH:MM")
+    <h3>Loans still being paid off</h3>
+    <table class="table">
+        <tr>
+            <th>
+                Loan ID
+            </th>
+            <th>
+                Loan Date
+            </th>
+            <th>
+                Amount Taken
+            </th>
+            <th>
+                Amount Paid
+            </th>
+            <th>
+                Amount Outstanding
+            </th>
+        </tr>
+
+        
+        @foreach (var item in Model.Lhist)
+        {
+            <tr style="background-color:darkslateblue;">
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanDate)
+                </td>
+                <td>Rs.
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>Rs. 
+                    @Html.DisplayFor(modelItem => item.AmountPaid)
+                </td>
+                <td>
+                    Rs. 
+                    @{ 
+                        decimal outsanding = (decimal) item.Amount - (decimal)item.AmountPaid;
+                    }
+                    @outsanding
+                </td>
+
+            </tr>
+            @Html.Action("LoanPay", new { LoanID = item.LoanID })
+        }
+
+    </table>
+
+
+<div class="MastDet">
+    <h3>Loans that have been paid off or defaulted</h3>
+    <table class="table">
+        <tr>
+            <th>
+                Loan ID
+            </th>
+            <th>
+                Loan Date
+            </th>
+            <th>
+                Amount Taken
+            </th>
+            <th>
+                Pay Months
+            </th>
+            <th>
+                Paid Off?
+            </th>
+            <th>
+                Defaulted?
+            </th>
+            <th>
+                Default Reason
+            </th>
+        </tr>
+
+
+
+        @foreach (var item in Model.Ln)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayMonths)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidOff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Default)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefaultReason)
+                </td>
+            </tr>
+
+        }
+
+    </table>
+
+</div>
+

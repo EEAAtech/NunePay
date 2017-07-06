@@ -1,0 +1,32 @@
+﻿@model IEnumerable<NunesHR.EDocTypes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Employee Document Types</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EDocType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EDocType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EDocTypeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EDocTypeID }) 
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,100 @@
+﻿@model PagedList.IPagedList<NunesHR.Loans>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = NunesHR.MyExtensions.GetTitle(GetType().Name);
+}
+
+<h2>@NunesHR.MyExtensions.CamelToSentence(ViewBag.Title)</h2>
+
+<p>
+    @if (ViewBag.EmpID == null)
+    {
+        <a href="~/Loans/Create">Create</a>
+    }
+    else
+    {
+        @Html.Action("EmpDets", new { EmpID = ViewBag.EmpID })
+        <button class="btn btn-default"><a href="~/Loans/Create/@ViewBag.EmpID">Create</a></button>
+        @: &nbsp;
+        <button class="btn btn-default"><a href="~/Payrolls/LoanHistory/@ViewBag.EmpID">View Loan History</a></button>
+    }
+
+</p>
+@using (Html.BeginForm("Index", "Loans", FormMethod.Get))
+{
+    <p>
+        Find by First-name or Nickname of employee: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().LoanDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().PayMonths)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Default)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EmpID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Employees.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Employees.NickName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoanDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PayMonths)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Default)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employees.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employees.NickName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LoanID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LoanID }) |
+            @Html.ActionLink("Skip", "../LoanSkips/Create/", new { id=item.LoanID })
+        </td>
+    </tr>
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+@if (ViewBag.EmpID != null)
+{
+    <div>
+        @Html.ActionLink("Back to Employee Details", "Edit", "Employees", new { id = ViewBag.EmpID }, null)
+    </div>
+}

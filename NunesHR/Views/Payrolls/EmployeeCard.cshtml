@@ -1,0 +1,287 @@
+﻿@model NunesHR.EmployeeCard
+
+@{
+    ViewBag.Title = "Employee Card";
+    string IsPrint = ViewBag.Print ?? "";
+    Layout = IsPrint.Length>0 ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_ReportsLayout.cshtml";
+}
+
+<h1>Employee Card for EmpID: @ViewBag.EmpID</h1>
+<div class="btn btn-block">
+    <a href="~/EmpDocs?EmpID=@ViewBag.EmpID"><input class="btn btn-default" type="button" value="Documents" name="Documents" title="Documents that this employee has on file" /></a>
+    <a href="~/EmploymentHistories?EmpID=@ViewBag.EmpID"><input class="btn btn-default" type="button" value="History" title="History of when this employee joined, registered etc." /></a>
+    <a href="~/Wages?EmpID=@ViewBag.EmpID"><input class="btn btn-default" type="button" value="Wages" title="Wages and Wage history for this employee" /></a>
+    <a href="~/Attendances/RollCall/@ViewBag.EmpID"><input class="btn btn-default" type="button" value="Attendance" title="Attendance of this and the previous month" /></a>
+    <a href="~/Loans?EmpID=@ViewBag.EmpID"><input class="btn btn-default" type="button" value="Loans" title="Loans issued to this employee" /></a>
+    <a href="~/Advances?EmpID=@ViewBag.EmpID"><input class="btn btn-default" type="button" value="Advance" title="Advance money given to this employee" /></a>
+    <a href="~/Payrolls/PaySlipsSRq?EmpID=@ViewBag.EmpID" target="_blank"><input class="btn btn-default" type="button" value="Payslip" title="Print an individual payslip" /></a>
+    <a href="~/Payrolls/EmployeeCard/@ViewBag.EmpID?Print=true" target="_blank"><input class="btn btn-default" type="button" value="Print Card" title="Print Employee Card" /></a>
+</div>
+<h2>@Model.emp.Name </h2>
+Generation Date: @DateTime.Now.ToString("dd-MMM-yyyy HH:mm")
+
+<table class="table table-condensed">
+    <tr>
+        <td width="30%">@Html.DisplayNameFor(model => model.emp.NickName ) :</td>
+        <td width="20%"><strong>@Html.DisplayFor(model => model.emp.NickName)</strong></td>
+        <td width="30%" style="border-left:solid thin">Job :</td>
+        <td width="20%">@Html.DisplayFor(model => model.emp.EmpTypes.EmpType) &nbsp; : @Html.DisplayFor(model => model.emp.JobTitle) </td>
+    </tr>
+    <tr>
+        <td width="30%">@Html.DisplayNameFor(model => model.emp.Mobile) :</td>
+        <td>@Html.DisplayFor(model => model.emp.Mobile)</td>
+        <td width="30%" style="border-left:solid thin">Emergency Contact :</td>
+        <td>@Html.DisplayFor(model => model.emp.EmContactReln) &nbsp; : @Html.DisplayFor(model => model.emp.EmContactNo) <br />
+        @Html.DisplayFor(model => model.emp.EmContactName) 
+        </td>
+    </tr>
+    <tr>
+        <td width="30%">@Html.DisplayNameFor(model => model.emp.DailyAllowance) :</td>
+        <td>@Html.DisplayFor(model => model.emp.PFno)</td>
+        <td width="30%" style="border-left:solid thin">@Html.DisplayNameFor(model => model.emp.BonusPayMonth) :</td>
+        <td>@MyExtensions.MonthFromInt(Model.emp.BonusPayMonth)</td>
+    </tr>
+    <tr>
+        <td width="30%">@Html.DisplayNameFor(model => model.emp.PFno) :</td>
+        <td>@Html.DisplayFor(model => model.emp.PFno)</td>
+        <td width="30%" style="border-left:solid thin">@Html.DisplayNameFor(model => model.emp.ESIno) :</td>
+        <td>@Html.DisplayFor(model => model.emp.ESIno)</td>
+    </tr>
+    <tr>
+        <td width="30%">@Html.DisplayNameFor(model => model.emp.NRegBank) :</td>
+        <td>@Html.DisplayFor(model => model.emp.NRegBank) 
+        &nbsp; :
+        @Html.DisplayFor(model => model.emp.NRegBankAc) </td>
+        <td width="30%" style="border-left:solid thin">@Html.DisplayNameFor(model => model.emp.RegBankAc) :</td>
+        <td>@Html.DisplayFor(model => model.emp.RegBankAc)</td>
+    </tr>
+
+</table>
+
+<h3>Documents Submitted</h3>
+<div class="@IsPrint">
+    <table class="table">
+        <tr>
+            <th>
+                Document Type
+            </th>
+
+            <th>
+                Expiry date
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model.empdocs)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EDocTypes.EDocType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpiryDate)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<p>&nbsp;</p>
+
+<h3>Employment History</h3>
+<div class="@IsPrint">
+    <table class="table">
+        <tr>
+            <th>
+                Join Date
+            </th>
+            <th>
+                Registration Date
+            </th>
+            <th>
+                Exit Date
+            </th>
+            <th>
+                Exit Reason
+            </th>
+        </tr>
+
+        @foreach (var item in Model.emphist)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JoinDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExitDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExitReason)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<p>&nbsp;</p>
+
+    <h3>Wages History</h3>
+<div class="@IsPrint">
+    <table class="table">
+        <tr>
+            <th>
+                With Effect From
+            </th>
+            <th>
+                Amount
+            </th>
+
+
+        </tr>
+
+        @foreach (var item in Model.wages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WEF)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+
+
+            </tr>
+        }
+
+    </table>
+</div>
+<p>&nbsp;</p>
+
+    <h3>Loans still being paid off</h3>
+    <div class="@IsPrint">
+    <table class="table">
+        <tr>
+            <th>
+                Loan ID
+            </th>
+            <th>
+                Loan Date
+            </th>
+            <th>
+                Amount Taken
+            </th>
+            <th>
+                Amount Paid
+            </th>
+            <th>
+                Amount Outstanding
+            </th>
+        </tr>
+
+
+        @foreach (var item in Model.elh.Lhist)
+            {
+            <tr style="background-color:darkslateblue;">
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanDate)
+                </td>
+                <td>
+                    Rs.
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    Rs.
+                    @Html.DisplayFor(modelItem => item.AmountPaid)
+                </td>
+                <td>
+                    Rs.
+                    @{
+                        decimal outsanding = (decimal)item.Amount - (decimal)item.AmountPaid;
+                    }
+                    @outsanding
+                </td>
+
+            </tr>
+                @Html.Action("LoanPay", new { LoanID = item.LoanID })
+                        }
+
+    </table>
+</div>
+<p>&nbsp;</p>
+
+
+        <h3>Loans that have been paid off or defaulted</h3>
+        <div class="@IsPrint">
+    <table class="table">
+        <tr>
+            <th>
+                Loan ID
+            </th>
+            <th>
+                Loan Date
+            </th>
+            <th>
+                Amount Taken
+            </th>
+            <th>
+                Pay Months
+            </th>
+            <th>
+                Paid Off?
+            </th>
+            <th>
+                Defaulted?
+            </th>
+            <th>
+                Default Reason
+            </th>
+        </tr>
+
+
+
+        @foreach (var item in Model.elh.Ln)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayMonths)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidOff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Default)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefaultReason)
+                </td>
+            </tr>
+
+        }
+
+    </table>
+</div>
+<p>&nbsp;</p>
+
+@if (IsPrint.Length > 0)
+{
+<div>
+    @Html.ActionLink("Back to List", "Index", "Employees")
+</div>
+}
+

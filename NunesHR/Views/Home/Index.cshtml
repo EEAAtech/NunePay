@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron" style="background-image: url(HeaderRaised.jpg); background-size: 100% 100%; background-repeat: no-repeat; height:300px;">
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2><u>Documents that need renewal</u></h2>
+        @Html.Action("DocsExpire", "EmpDocs")
+                
+    </div>
+
+    
+</div>

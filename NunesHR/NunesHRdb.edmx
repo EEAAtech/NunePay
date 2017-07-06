@@ -1,0 +1,1473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NTHRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Advance">
+          <Key>
+            <PropertyRef Name="AdvanceID" />
+          </Key>
+          <Property Name="AdvanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="AdvDate" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Allowance">
+          <Key>
+            <PropertyRef Name="AllowanceID" />
+          </Key>
+          <Property Name="AllowanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ATID" Type="int" Nullable="false" />
+          <Property Name="WEF" Type="date" Nullable="false" />
+          <Property Name="EmpTypeID" Type="int" Nullable="false" />
+          <Property Name="PercOfWage" Type="money" />
+          <Property Name="Amount" Type="money" />
+        </EntityType>
+        <EntityType Name="AllowanceTypes">
+          <Key>
+            <PropertyRef Name="ATID" />
+          </Key>
+          <Property Name="ATID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AllowanceType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="LeaveDate" />
+          </Key>
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="LeaveDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bonus">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="Year" />
+          </Key>
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="SysBonus" Type="money" />
+          <Property Name="UsrBonus" Type="money" />
+          <Property Name="Frozen" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="BonusPerc" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DocExpirePreWarning" Type="int" />
+          <Property Name="RowsPerPage" Type="int" Nullable="false" />
+          <Property Name="ImageSavePath" Type="varchar" MaxLength="150" />
+          <Property Name="DefaultBank" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DailyAllowance">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="AllowDate" />
+          </Key>
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="AllowDate" Type="date" Nullable="false" />
+          <Property Name="SaveTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EDocTypes">
+          <Key>
+            <PropertyRef Name="EDocTypeID" />
+          </Key>
+          <Property Name="EDocTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EDocType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmpDocs">
+          <Key>
+            <PropertyRef Name="EDID" />
+          </Key>
+          <Property Name="EDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="EDocTypeID" Type="int" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="100" />
+          <Property Name="ExpiryDate" Type="date" />
+          <Property Name="Renewed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmpID" />
+          </Key>
+          <Property Name="EmpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="NickName" Type="varchar" MaxLength="50" />
+          <Property Name="EmpTypeID" Type="int" Nullable="false" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="150" />
+          <Property Name="Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="EmContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="EmContactName" Type="varchar" MaxLength="250" />
+          <Property Name="EmContactReln" Type="varchar" MaxLength="50" />
+          <Property Name="RegBankAc" Type="varchar" MaxLength="50" />
+          <Property Name="NRegBankAc" Type="varchar" MaxLength="50" />
+          <Property Name="NRegBank" Type="varchar" MaxLength="50" />
+          <Property Name="NRegIFSC" Type="varchar" MaxLength="50" />
+          <Property Name="BonusPayMonth" Type="tinyint" Nullable="false" />
+          <Property Name="PFno" Type="varchar" MaxLength="50" />
+          <Property Name="ESIno" Type="varchar" MaxLength="50" />
+          <Property Name="CatAB" Type="char" MaxLength="1" />
+          <Property Name="IsHDFC" Type="bit" />
+        </EntityType>
+        <EntityType Name="EmploymentHistory">
+          <Key>
+            <PropertyRef Name="EHID" />
+          </Key>
+          <Property Name="EHID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="JoinDate" Type="date" Nullable="false" />
+          <Property Name="RegistrationDate" Type="date" />
+          <Property Name="ExitDate" Type="date" />
+          <Property Name="ExitReason" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="EmpTypes">
+          <Key>
+            <PropertyRef Name="EmpTypeID" />
+          </Key>
+          <Property Name="EmpTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HasDailyAllowance" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Holidays">
+          <Key>
+            <PropertyRef Name="HoliDate" />
+          </Key>
+          <Property Name="HoliDate" Type="date" Nullable="false" />
+          <Property Name="Holiday" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LoanPay">
+          <Key>
+            <PropertyRef Name="LoanPayID" />
+          </Key>
+          <Property Name="LoanPayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoanID" Type="int" Nullable="false" />
+          <Property Name="GenMonth" Type="int" Nullable="false" />
+          <Property Name="GenYear" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Frozen" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Loans">
+          <Key>
+            <PropertyRef Name="LoanID" />
+          </Key>
+          <Property Name="LoanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="LoanDate" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="PayMonths" Type="int" Nullable="false" />
+          <Property Name="PaidOff" Type="bit" Nullable="false" />
+          <Property Name="Default" Type="bit" Nullable="false" />
+          <Property Name="DefaultReason" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LoanSkip">
+          <Key>
+            <PropertyRef Name="LoanSkipID" />
+          </Key>
+          <Property Name="LoanSkipID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoanID" Type="int" Nullable="false" />
+          <Property Name="PayDate" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Reason" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="GenMonth" />
+            <PropertyRef Name="GenYear" />
+          </Key>
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="GenMonth" Type="int" Nullable="false" />
+          <Property Name="GenYear" Type="int" Nullable="false" />
+          <Property Name="GenDate" Type="date" />
+          <Property Name="Wages" Type="money" />
+          <Property Name="DaysWorked" Type="int" />
+          <Property Name="Allowance" Type="money" />
+          <Property Name="Advance" Type="money" />
+          <Property Name="Bonus" Type="money" />
+          <Property Name="LoanAmt" Type="money" />
+          <Property Name="LoanCmt" Type="varchar" MaxLength="50" />
+          <Property Name="AdjAmt" Type="money" />
+          <Property Name="AdjRemark" Type="varchar" MaxLength="100" />
+          <Property Name="Total" Type="money" />
+          <Property Name="Frozen" Type="bit" Nullable="false" />
+          <Property Name="BankName" Type="varchar" MaxLength="50" />
+          <Property Name="BankAccount" Type="varchar" MaxLength="50" />
+          <Property Name="Instructions" Type="varchar(max)" />
+          <Property Name="ExcludeExcel" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PayrollAllowance">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="GenMonth" />
+            <PropertyRef Name="GenYear" />
+            <PropertyRef Name="ATID" />
+          </Key>
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="GenMonth" Type="int" Nullable="false" />
+          <Property Name="GenYear" Type="int" Nullable="false" />
+          <Property Name="ATID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="money" />
+          <Property Name="Frozen" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PayrollRemarks">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="GenMonth" />
+            <PropertyRef Name="GenYear" />
+          </Key>
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="GenMonth" Type="int" Nullable="false" />
+          <Property Name="GenYear" Type="int" Nullable="false" />
+          <Property Name="ExcludeFromExcel" Type="bit" />
+          <Property Name="Remarks" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Wages">
+          <Key>
+            <PropertyRef Name="WageID" />
+          </Key>
+          <Property Name="WageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="WEF" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Advance_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Advance" Type="Self.Advance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Advance">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Allowance_ToAT">
+          <End Role="AllowanceTypes" Type="Self.AllowanceTypes" Multiplicity="1" />
+          <End Role="Allowance" Type="Self.Allowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllowanceTypes">
+              <PropertyRef Name="ATID" />
+            </Principal>
+            <Dependent Role="Allowance">
+              <PropertyRef Name="ATID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Allowance_ToEmpTypes">
+          <End Role="EmpTypes" Type="Self.EmpTypes" Multiplicity="1" />
+          <End Role="Allowance" Type="Self.Allowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmpTypes">
+              <PropertyRef Name="EmpTypeID" />
+            </Principal>
+            <Dependent Role="Allowance">
+              <PropertyRef Name="EmpTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attendance_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bonus_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Bonus" Type="Self.Bonus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Bonus">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyAllowance_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="DailyAllowance" Type="Self.DailyAllowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="DailyAllowance">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EDocs_ToEdocTypes">
+          <End Role="EDocTypes" Type="Self.EDocTypes" Multiplicity="1" />
+          <End Role="EmpDocs" Type="Self.EmpDocs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EDocTypes">
+              <PropertyRef Name="EDocTypeID" />
+            </Principal>
+            <Dependent Role="EmpDocs">
+              <PropertyRef Name="EDocTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpDocs_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="EmpDocs" Type="Self.EmpDocs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="EmpDocs">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_ToEmpTypes">
+          <End Role="EmpTypes" Type="Self.EmpTypes" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmpTypes">
+              <PropertyRef Name="EmpTypeID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="EmpTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmploymentHistory_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="EmploymentHistory" Type="Self.EmploymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="EmploymentHistory">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanPay_ToLoan">
+          <End Role="Loans" Type="Self.Loans" Multiplicity="1" />
+          <End Role="LoanPay" Type="Self.LoanPay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loans">
+              <PropertyRef Name="LoanID" />
+            </Principal>
+            <Dependent Role="LoanPay">
+              <PropertyRef Name="LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loans_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Loans" Type="Self.Loans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanSkip_ToLoan">
+          <End Role="Loans" Type="Self.Loans" Multiplicity="1" />
+          <End Role="LoanSkip" Type="Self.LoanSkip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loans">
+              <PropertyRef Name="LoanID" />
+            </Principal>
+            <Dependent Role="LoanSkip">
+              <PropertyRef Name="LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayrollAllow_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="PayrollAllowance" Type="Self.PayrollAllowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="PayrollAllowance">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayrollAllowance_ToAT">
+          <End Role="AllowanceTypes" Type="Self.AllowanceTypes" Multiplicity="1" />
+          <End Role="PayrollAllowance" Type="Self.PayrollAllowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllowanceTypes">
+              <PropertyRef Name="ATID" />
+            </Principal>
+            <Dependent Role="PayrollAllowance">
+              <PropertyRef Name="ATID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayrollRem_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="PayrollRemarks" Type="Self.PayrollRemarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="PayrollRemarks">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wages_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Wages" Type="Self.Wages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Wages">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="FreezePayroll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GenBonus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GenPayroll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get5yrBonus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="yr" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetLoanHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmpID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="NTHRModelStoreContainer">
+          <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Allowance" EntityType="Self.Allowance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllowanceTypes" EntityType="Self.AllowanceTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bonus" EntityType="Self.Bonus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyAllowance" EntityType="Self.DailyAllowance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EDocTypes" EntityType="Self.EDocTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpDocs" EntityType="Self.EmpDocs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmploymentHistory" EntityType="Self.EmploymentHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpTypes" EntityType="Self.EmpTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Holidays" EntityType="Self.Holidays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoanPay" EntityType="Self.LoanPay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loans" EntityType="Self.Loans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoanSkip" EntityType="Self.LoanSkip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payroll" EntityType="Self.Payroll" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayrollAllowance" EntityType="Self.PayrollAllowance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayrollRemarks" EntityType="Self.PayrollRemarks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wages" EntityType="Self.Wages" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Advance_ToEmps" Association="Self.FK_Advance_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Advance" EntitySet="Advance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Allowance_ToAT" Association="Self.FK_Allowance_ToAT">
+            <End Role="AllowanceTypes" EntitySet="AllowanceTypes" />
+            <End Role="Allowance" EntitySet="Allowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Allowance_ToEmpTypes" Association="Self.FK_Allowance_ToEmpTypes">
+            <End Role="EmpTypes" EntitySet="EmpTypes" />
+            <End Role="Allowance" EntitySet="Allowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_ToEmps" Association="Self.FK_Attendance_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bonus_ToEmployees" Association="Self.FK_Bonus_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Bonus" EntitySet="Bonus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyAllowance_ToEmps" Association="Self.FK_DailyAllowance_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="DailyAllowance" EntitySet="DailyAllowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EDocs_ToEdocTypes" Association="Self.FK_EDocs_ToEdocTypes">
+            <End Role="EDocTypes" EntitySet="EDocTypes" />
+            <End Role="EmpDocs" EntitySet="EmpDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpDocs_ToEmps" Association="Self.FK_EmpDocs_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="EmpDocs" EntitySet="EmpDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_ToEmpTypes" Association="Self.FK_Employees_ToEmpTypes">
+            <End Role="EmpTypes" EntitySet="EmpTypes" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmploymentHistory_ToEmployees" Association="Self.FK_EmploymentHistory_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="EmploymentHistory" EntitySet="EmploymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanPay_ToLoan" Association="Self.FK_LoanPay_ToLoan">
+            <End Role="Loans" EntitySet="Loans" />
+            <End Role="LoanPay" EntitySet="LoanPay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loans_ToEmps" Association="Self.FK_Loans_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanSkip_ToLoan" Association="Self.FK_LoanSkip_ToLoan">
+            <End Role="Loans" EntitySet="Loans" />
+            <End Role="LoanSkip" EntitySet="LoanSkip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_ToEmployees" Association="Self.FK_Payroll_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayrollAllow_ToEmployees" Association="Self.FK_PayrollAllow_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="PayrollAllowance" EntitySet="PayrollAllowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayrollAllowance_ToAT" Association="Self.FK_PayrollAllowance_ToAT">
+            <End Role="AllowanceTypes" EntitySet="AllowanceTypes" />
+            <End Role="PayrollAllowance" EntitySet="PayrollAllowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayrollRem_ToEmployees" Association="Self.FK_PayrollRem_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="PayrollRemarks" EntitySet="PayrollRemarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wages_ToEmps" Association="Self.FK_Wages_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Wages" EntitySet="Wages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NTHRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Advance">
+          <Key>
+            <PropertyRef Name="AdvanceID" />
+          </Key>
+          <Property Name="AdvanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="AdvDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Advance_ToEmps" FromRole="Advance" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Allowance">
+          <Key>
+            <PropertyRef Name="AllowanceID" />
+          </Key>
+          <Property Name="AllowanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ATID" Type="Int32" Nullable="false" />
+          <Property Name="WEF" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EmpTypeID" Type="Int32" Nullable="false" />
+          <Property Name="PercOfWage" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="AllowanceTypes" Relationship="Self.FK_Allowance_ToAT" FromRole="Allowance" ToRole="AllowanceTypes" />
+          <NavigationProperty Name="EmpTypes" Relationship="Self.FK_Allowance_ToEmpTypes" FromRole="Allowance" ToRole="EmpTypes" />
+        </EntityType>
+        <EntityType Name="AllowanceTypes">
+          <Key>
+            <PropertyRef Name="ATID" />
+          </Key>
+          <Property Name="ATID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AllowanceType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Allowance" Relationship="Self.FK_Allowance_ToAT" FromRole="AllowanceTypes" ToRole="Allowance" />
+          <NavigationProperty Name="PayrollAllowance" Relationship="Self.FK_PayrollAllowance_ToAT" FromRole="AllowanceTypes" ToRole="PayrollAllowance" />
+        </EntityType>
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="LeaveDate" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Attendance_ToEmps" FromRole="Attendance" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Bonus">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="Year" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="SysBonus" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UsrBonus" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Frozen" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Bonus_ToEmployees" FromRole="Bonus" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="BonusPerc" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DocExpirePreWarning" Type="Int32" />
+          <Property Name="RowsPerPage" Type="Int32" Nullable="false" />
+          <Property Name="ImageSavePath" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultBank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DailyAllowance">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="AllowDate" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="AllowDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SaveTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_DailyAllowance_ToEmps" FromRole="DailyAllowance" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="EDocTypes">
+          <Key>
+            <PropertyRef Name="EDocTypeID" />
+          </Key>
+          <Property Name="EDocTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EDocType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EmpDocs" Relationship="Self.FK_EDocs_ToEdocTypes" FromRole="EDocTypes" ToRole="EmpDocs" />
+        </EntityType>
+        <EntityType Name="EmpDocs">
+          <Key>
+            <PropertyRef Name="EDID" />
+          </Key>
+          <Property Name="EDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="EDocTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="Renewed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="EDocTypes" Relationship="Self.FK_EDocs_ToEdocTypes" FromRole="EmpDocs" ToRole="EDocTypes" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_EmpDocs_ToEmps" FromRole="EmpDocs" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmpID" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpTypeID" Type="Int32" Nullable="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmContactName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EmContactReln" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RegBankAc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NRegBankAc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NRegBank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NRegIFSC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BonusPayMonth" Type="Byte" Nullable="false" />
+          <Property Name="PFno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESIno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CatAB" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsHDFC" Type="Boolean" />
+          <NavigationProperty Name="Advance" Relationship="Self.FK_Advance_ToEmps" FromRole="Employees" ToRole="Advance" />
+          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_ToEmps" FromRole="Employees" ToRole="Attendance" />
+          <NavigationProperty Name="Bonus" Relationship="Self.FK_Bonus_ToEmployees" FromRole="Employees" ToRole="Bonus" />
+          <NavigationProperty Name="DailyAllowance" Relationship="Self.FK_DailyAllowance_ToEmps" FromRole="Employees" ToRole="DailyAllowance" />
+          <NavigationProperty Name="EmpDocs" Relationship="Self.FK_EmpDocs_ToEmps" FromRole="Employees" ToRole="EmpDocs" />
+          <NavigationProperty Name="EmpTypes" Relationship="Self.FK_Employees_ToEmpTypes" FromRole="Employees" ToRole="EmpTypes" />
+          <NavigationProperty Name="EmploymentHistory" Relationship="Self.FK_EmploymentHistory_ToEmployees" FromRole="Employees" ToRole="EmploymentHistory" />
+          <NavigationProperty Name="Loans" Relationship="Self.FK_Loans_ToEmps" FromRole="Employees" ToRole="Loans" />
+          <NavigationProperty Name="Payroll" Relationship="Self.FK_Payroll_ToEmployees" FromRole="Employees" ToRole="Payroll" />
+          <NavigationProperty Name="PayrollAllowance" Relationship="Self.FK_PayrollAllow_ToEmployees" FromRole="Employees" ToRole="PayrollAllowance" />
+          <NavigationProperty Name="PayrollRemarks" Relationship="Self.FK_PayrollRem_ToEmployees" FromRole="Employees" ToRole="PayrollRemarks" />
+          <NavigationProperty Name="Wages" Relationship="Self.FK_Wages_ToEmps" FromRole="Employees" ToRole="Wages" />
+        </EntityType>
+        <EntityType Name="EmploymentHistory">
+          <Key>
+            <PropertyRef Name="EHID" />
+          </Key>
+          <Property Name="EHID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="JoinDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+          <Property Name="ExitDate" Type="DateTime" Precision="0" />
+          <Property Name="ExitReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_EmploymentHistory_ToEmployees" FromRole="EmploymentHistory" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="EmpTypes">
+          <Key>
+            <PropertyRef Name="EmpTypeID" />
+          </Key>
+          <Property Name="EmpTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HasDailyAllowance" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Allowance" Relationship="Self.FK_Allowance_ToEmpTypes" FromRole="EmpTypes" ToRole="Allowance" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_ToEmpTypes" FromRole="EmpTypes" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Holidays">
+          <Key>
+            <PropertyRef Name="HoliDate" />
+          </Key>
+          <Property Name="HoliDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Holiday" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LoanPay">
+          <Key>
+            <PropertyRef Name="LoanPayID" />
+          </Key>
+          <Property Name="LoanPayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoanID" Type="Int32" Nullable="false" />
+          <Property Name="GenMonth" Type="Int32" Nullable="false" />
+          <Property Name="GenYear" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Frozen" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Loans" Relationship="Self.FK_LoanPay_ToLoan" FromRole="LoanPay" ToRole="Loans" />
+        </EntityType>
+        <EntityType Name="Loans">
+          <Key>
+            <PropertyRef Name="LoanID" />
+          </Key>
+          <Property Name="LoanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="LoanDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PayMonths" Type="Int32" Nullable="false" />
+          <Property Name="PaidOff" Type="Boolean" Nullable="false" />
+          <Property Name="Default" Type="Boolean" Nullable="false" />
+          <Property Name="DefaultReason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Loans_ToEmps" FromRole="Loans" ToRole="Employees" />
+          <NavigationProperty Name="LoanPay" Relationship="Self.FK_LoanPay_ToLoan" FromRole="Loans" ToRole="LoanPay" />
+          <NavigationProperty Name="LoanSkip" Relationship="Self.FK_LoanSkip_ToLoan" FromRole="Loans" ToRole="LoanSkip" />
+        </EntityType>
+        <EntityType Name="LoanSkip">
+          <Key>
+            <PropertyRef Name="LoanSkipID" />
+          </Key>
+          <Property Name="LoanSkipID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoanID" Type="Int32" Nullable="false" />
+          <Property Name="PayDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Loans" Relationship="Self.FK_LoanSkip_ToLoan" FromRole="LoanSkip" ToRole="Loans" />
+        </EntityType>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="GenMonth" />
+            <PropertyRef Name="GenYear" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="GenMonth" Type="Int32" Nullable="false" />
+          <Property Name="GenYear" Type="Int32" Nullable="false" />
+          <Property Name="GenDate" Type="DateTime" Precision="0" />
+          <Property Name="Wages" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DaysWorked" Type="Int32" />
+          <Property Name="Allowance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Advance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Bonus" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LoanAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LoanCmt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdjAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdjRemark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Frozen" Type="Boolean" Nullable="false" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExcludeExcel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Payroll_ToEmployees" FromRole="Payroll" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="PayrollAllowance">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="GenMonth" />
+            <PropertyRef Name="GenYear" />
+            <PropertyRef Name="ATID" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="GenMonth" Type="Int32" Nullable="false" />
+          <Property Name="GenYear" Type="Int32" Nullable="false" />
+          <Property Name="ATID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Frozen" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AllowanceTypes" Relationship="Self.FK_PayrollAllowance_ToAT" FromRole="PayrollAllowance" ToRole="AllowanceTypes" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_PayrollAllow_ToEmployees" FromRole="PayrollAllowance" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="PayrollRemarks">
+          <Key>
+            <PropertyRef Name="EmpID" />
+            <PropertyRef Name="GenMonth" />
+            <PropertyRef Name="GenYear" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="GenMonth" Type="Int32" Nullable="false" />
+          <Property Name="GenYear" Type="Int32" Nullable="false" />
+          <Property Name="ExcludeFromExcel" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_PayrollRem_ToEmployees" FromRole="PayrollRemarks" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Wages">
+          <Key>
+            <PropertyRef Name="WageID" />
+          </Key>
+          <Property Name="WageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="WEF" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Wages_ToEmps" FromRole="Wages" ToRole="Employees" />
+        </EntityType>
+        <Association Name="FK_Advance_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Advance" Type="Self.Advance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Advance">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Allowance_ToAT">
+          <End Role="AllowanceTypes" Type="Self.AllowanceTypes" Multiplicity="1" />
+          <End Role="Allowance" Type="Self.Allowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllowanceTypes">
+              <PropertyRef Name="ATID" />
+            </Principal>
+            <Dependent Role="Allowance">
+              <PropertyRef Name="ATID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Allowance_ToEmpTypes">
+          <End Role="EmpTypes" Type="Self.EmpTypes" Multiplicity="1" />
+          <End Role="Allowance" Type="Self.Allowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmpTypes">
+              <PropertyRef Name="EmpTypeID" />
+            </Principal>
+            <Dependent Role="Allowance">
+              <PropertyRef Name="EmpTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayrollAllowance_ToAT">
+          <End Role="AllowanceTypes" Type="Self.AllowanceTypes" Multiplicity="1" />
+          <End Role="PayrollAllowance" Type="Self.PayrollAllowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllowanceTypes">
+              <PropertyRef Name="ATID" />
+            </Principal>
+            <Dependent Role="PayrollAllowance">
+              <PropertyRef Name="ATID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attendance_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bonus_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Bonus" Type="Self.Bonus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Bonus">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyAllowance_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="DailyAllowance" Type="Self.DailyAllowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="DailyAllowance">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EDocs_ToEdocTypes">
+          <End Role="EDocTypes" Type="Self.EDocTypes" Multiplicity="1" />
+          <End Role="EmpDocs" Type="Self.EmpDocs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EDocTypes">
+              <PropertyRef Name="EDocTypeID" />
+            </Principal>
+            <Dependent Role="EmpDocs">
+              <PropertyRef Name="EDocTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpDocs_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="EmpDocs" Type="Self.EmpDocs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="EmpDocs">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_ToEmpTypes">
+          <End Role="EmpTypes" Type="Self.EmpTypes" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmpTypes">
+              <PropertyRef Name="EmpTypeID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="EmpTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmploymentHistory_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="EmploymentHistory" Type="Self.EmploymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="EmploymentHistory">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loans_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Loans" Type="Self.Loans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayrollAllow_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="PayrollAllowance" Type="Self.PayrollAllowance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="PayrollAllowance">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayrollRem_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="PayrollRemarks" Type="Self.PayrollRemarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="PayrollRemarks">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wages_ToEmps">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Wages" Type="Self.Wages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Wages">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanPay_ToLoan">
+          <End Role="Loans" Type="Self.Loans" Multiplicity="1" />
+          <End Role="LoanPay" Type="Self.LoanPay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loans">
+              <PropertyRef Name="LoanID" />
+            </Principal>
+            <Dependent Role="LoanPay">
+              <PropertyRef Name="LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanSkip_ToLoan">
+          <End Role="Loans" Type="Self.Loans" Multiplicity="1" />
+          <End Role="LoanSkip" Type="Self.LoanSkip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loans">
+              <PropertyRef Name="LoanID" />
+            </Principal>
+            <Dependent Role="LoanSkip">
+              <PropertyRef Name="LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NTHRPayEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Advance" EntityType="Self.Advance" />
+          <EntitySet Name="Allowance" EntityType="Self.Allowance" />
+          <EntitySet Name="AllowanceTypes" EntityType="Self.AllowanceTypes" />
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" />
+          <EntitySet Name="Bonus" EntityType="Self.Bonus" />
+          <EntitySet Name="Config" EntityType="Self.Config" />
+          <EntitySet Name="DailyAllowance" EntityType="Self.DailyAllowance" />
+          <EntitySet Name="EDocTypes" EntityType="Self.EDocTypes" />
+          <EntitySet Name="EmpDocs" EntityType="Self.EmpDocs" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="EmploymentHistory" EntityType="Self.EmploymentHistory" />
+          <EntitySet Name="EmpTypes" EntityType="Self.EmpTypes" />
+          <EntitySet Name="Holidays" EntityType="Self.Holidays" />
+          <EntitySet Name="LoanPay" EntityType="Self.LoanPay" />
+          <EntitySet Name="Loans" EntityType="Self.Loans" />
+          <EntitySet Name="LoanSkip" EntityType="Self.LoanSkip" />
+          <EntitySet Name="Payroll" EntityType="Self.Payroll" />
+          <EntitySet Name="PayrollAllowance" EntityType="Self.PayrollAllowance" />
+          <EntitySet Name="PayrollRemarks" EntityType="Self.PayrollRemarks" />
+          <EntitySet Name="Wages" EntityType="Self.Wages" />
+          <AssociationSet Name="FK_Advance_ToEmps" Association="Self.FK_Advance_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Advance" EntitySet="Advance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Allowance_ToAT" Association="Self.FK_Allowance_ToAT">
+            <End Role="AllowanceTypes" EntitySet="AllowanceTypes" />
+            <End Role="Allowance" EntitySet="Allowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Allowance_ToEmpTypes" Association="Self.FK_Allowance_ToEmpTypes">
+            <End Role="EmpTypes" EntitySet="EmpTypes" />
+            <End Role="Allowance" EntitySet="Allowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayrollAllowance_ToAT" Association="Self.FK_PayrollAllowance_ToAT">
+            <End Role="AllowanceTypes" EntitySet="AllowanceTypes" />
+            <End Role="PayrollAllowance" EntitySet="PayrollAllowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_ToEmps" Association="Self.FK_Attendance_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bonus_ToEmployees" Association="Self.FK_Bonus_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Bonus" EntitySet="Bonus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyAllowance_ToEmps" Association="Self.FK_DailyAllowance_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="DailyAllowance" EntitySet="DailyAllowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EDocs_ToEdocTypes" Association="Self.FK_EDocs_ToEdocTypes">
+            <End Role="EDocTypes" EntitySet="EDocTypes" />
+            <End Role="EmpDocs" EntitySet="EmpDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpDocs_ToEmps" Association="Self.FK_EmpDocs_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="EmpDocs" EntitySet="EmpDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_ToEmpTypes" Association="Self.FK_Employees_ToEmpTypes">
+            <End Role="EmpTypes" EntitySet="EmpTypes" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmploymentHistory_ToEmployees" Association="Self.FK_EmploymentHistory_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="EmploymentHistory" EntitySet="EmploymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loans_ToEmps" Association="Self.FK_Loans_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_ToEmployees" Association="Self.FK_Payroll_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayrollAllow_ToEmployees" Association="Self.FK_PayrollAllow_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="PayrollAllowance" EntitySet="PayrollAllowance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayrollRem_ToEmployees" Association="Self.FK_PayrollRem_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="PayrollRemarks" EntitySet="PayrollRemarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wages_ToEmps" Association="Self.FK_Wages_ToEmps">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Wages" EntitySet="Wages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanPay_ToLoan" Association="Self.FK_LoanPay_ToLoan">
+            <End Role="Loans" EntitySet="Loans" />
+            <End Role="LoanPay" EntitySet="LoanPay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanSkip_ToLoan" Association="Self.FK_LoanSkip_ToLoan">
+            <End Role="Loans" EntitySet="Loans" />
+            <End Role="LoanSkip" EntitySet="LoanSkip" />
+          </AssociationSet>
+          <FunctionImport Name="FreezePayroll">
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GenBonus" />
+          <FunctionImport Name="GenPayroll">
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get5yrBonus" ReturnType="Collection(NTHRModel.Get5yrBonus_Result)">
+            <Parameter Name="yr" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetLoanHistory" ReturnType="Collection(NTHRModel.GetLoanHistory_Result)">
+            <Parameter Name="EmpID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Get5yrBonus_Result">
+          <Property Type="Int32" Name="EmpID" Nullable="true" />
+          <Property Type="String" Name="EmpName" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="yr1" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="yr2" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="yr3" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="yr4" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ThisYrSys" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ThisYrUsr" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="GetLoanHistory_Result">
+          <Property Type="Int32" Name="LoanID" Nullable="true" />
+          <Property Type="DateTime" Name="LoanDate" Nullable="true" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="PayMonths" Nullable="true" />
+          <Property Type="Decimal" Name="AmountPaid" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="EmpID" Nullable="true" />
+          <Property Type="String" Name="EmpName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Cmt" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NTHRModelStoreContainer" CdmEntityContainer="NTHRPayEntities1">
+          <EntitySetMapping Name="Advance">
+            <EntityTypeMapping TypeName="NTHRModel.Advance">
+              <MappingFragment StoreEntitySet="Advance">
+                <ScalarProperty Name="AdvanceID" ColumnName="AdvanceID" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="AdvDate" ColumnName="AdvDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Allowance">
+            <EntityTypeMapping TypeName="NTHRModel.Allowance">
+              <MappingFragment StoreEntitySet="Allowance">
+                <ScalarProperty Name="AllowanceID" ColumnName="AllowanceID" />
+                <ScalarProperty Name="ATID" ColumnName="ATID" />
+                <ScalarProperty Name="WEF" ColumnName="WEF" />
+                <ScalarProperty Name="EmpTypeID" ColumnName="EmpTypeID" />
+                <ScalarProperty Name="PercOfWage" ColumnName="PercOfWage" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllowanceTypes">
+            <EntityTypeMapping TypeName="NTHRModel.AllowanceTypes">
+              <MappingFragment StoreEntitySet="AllowanceTypes">
+                <ScalarProperty Name="ATID" ColumnName="ATID" />
+                <ScalarProperty Name="AllowanceType" ColumnName="AllowanceType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attendance">
+            <EntityTypeMapping TypeName="NTHRModel.Attendance">
+              <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bonus">
+            <EntityTypeMapping TypeName="NTHRModel.Bonus">
+              <MappingFragment StoreEntitySet="Bonus">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="SysBonus" ColumnName="SysBonus" />
+                <ScalarProperty Name="UsrBonus" ColumnName="UsrBonus" />
+                <ScalarProperty Name="Frozen" ColumnName="Frozen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Config">
+            <EntityTypeMapping TypeName="NTHRModel.Config">
+              <MappingFragment StoreEntitySet="Config">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BonusPerc" ColumnName="BonusPerc" />
+                <ScalarProperty Name="DocExpirePreWarning" ColumnName="DocExpirePreWarning" />
+                <ScalarProperty Name="RowsPerPage" ColumnName="RowsPerPage" />
+                <ScalarProperty Name="ImageSavePath" ColumnName="ImageSavePath" />
+                <ScalarProperty Name="DefaultBank" ColumnName="DefaultBank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyAllowance">
+            <EntityTypeMapping TypeName="NTHRModel.DailyAllowance">
+              <MappingFragment StoreEntitySet="DailyAllowance">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="AllowDate" ColumnName="AllowDate" />
+                <ScalarProperty Name="SaveTime" ColumnName="SaveTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EDocTypes">
+            <EntityTypeMapping TypeName="NTHRModel.EDocTypes">
+              <MappingFragment StoreEntitySet="EDocTypes">
+                <ScalarProperty Name="EDocTypeID" ColumnName="EDocTypeID" />
+                <ScalarProperty Name="EDocType" ColumnName="EDocType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpDocs">
+            <EntityTypeMapping TypeName="NTHRModel.EmpDocs">
+              <MappingFragment StoreEntitySet="EmpDocs">
+                <ScalarProperty Name="EDID" ColumnName="EDID" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="EDocTypeID" ColumnName="EDocTypeID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="Renewed" ColumnName="Renewed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="NTHRModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="EmpTypeID" ColumnName="EmpTypeID" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="EmContactNo" ColumnName="EmContactNo" />
+                <ScalarProperty Name="EmContactName" ColumnName="EmContactName" />
+                <ScalarProperty Name="EmContactReln" ColumnName="EmContactReln" />
+                <ScalarProperty Name="RegBankAc" ColumnName="RegBankAc" />
+                <ScalarProperty Name="NRegBankAc" ColumnName="NRegBankAc" />
+                <ScalarProperty Name="NRegBank" ColumnName="NRegBank" />
+                <ScalarProperty Name="NRegIFSC" ColumnName="NRegIFSC" />
+                <ScalarProperty Name="BonusPayMonth" ColumnName="BonusPayMonth" />
+                <ScalarProperty Name="PFno" ColumnName="PFno" />
+                <ScalarProperty Name="ESIno" ColumnName="ESIno" />
+                <ScalarProperty Name="CatAB" ColumnName="CatAB" />
+                <ScalarProperty Name="IsHDFC" ColumnName="IsHDFC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmploymentHistory">
+            <EntityTypeMapping TypeName="NTHRModel.EmploymentHistory">
+              <MappingFragment StoreEntitySet="EmploymentHistory">
+                <ScalarProperty Name="EHID" ColumnName="EHID" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="ExitDate" ColumnName="ExitDate" />
+                <ScalarProperty Name="ExitReason" ColumnName="ExitReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpTypes">
+            <EntityTypeMapping TypeName="NTHRModel.EmpTypes">
+              <MappingFragment StoreEntitySet="EmpTypes">
+                <ScalarProperty Name="EmpTypeID" ColumnName="EmpTypeID" />
+                <ScalarProperty Name="EmpType" ColumnName="EmpType" />
+                <ScalarProperty Name="HasDailyAllowance" ColumnName="HasDailyAllowance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Holidays">
+            <EntityTypeMapping TypeName="NTHRModel.Holidays">
+              <MappingFragment StoreEntitySet="Holidays">
+                <ScalarProperty Name="HoliDate" ColumnName="HoliDate" />
+                <ScalarProperty Name="Holiday" ColumnName="Holiday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanPay">
+            <EntityTypeMapping TypeName="NTHRModel.LoanPay">
+              <MappingFragment StoreEntitySet="LoanPay">
+                <ScalarProperty Name="LoanPayID" ColumnName="LoanPayID" />
+                <ScalarProperty Name="LoanID" ColumnName="LoanID" />
+                <ScalarProperty Name="GenMonth" ColumnName="GenMonth" />
+                <ScalarProperty Name="GenYear" ColumnName="GenYear" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Frozen" ColumnName="Frozen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loans">
+            <EntityTypeMapping TypeName="NTHRModel.Loans">
+              <MappingFragment StoreEntitySet="Loans">
+                <ScalarProperty Name="LoanID" ColumnName="LoanID" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="LoanDate" ColumnName="LoanDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PayMonths" ColumnName="PayMonths" />
+                <ScalarProperty Name="PaidOff" ColumnName="PaidOff" />
+                <ScalarProperty Name="Default" ColumnName="Default" />
+                <ScalarProperty Name="DefaultReason" ColumnName="DefaultReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanSkip">
+            <EntityTypeMapping TypeName="NTHRModel.LoanSkip">
+              <MappingFragment StoreEntitySet="LoanSkip">
+                <ScalarProperty Name="LoanSkipID" ColumnName="LoanSkipID" />
+                <ScalarProperty Name="LoanID" ColumnName="LoanID" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payroll">
+            <EntityTypeMapping TypeName="NTHRModel.Payroll">
+              <MappingFragment StoreEntitySet="Payroll">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="GenMonth" ColumnName="GenMonth" />
+                <ScalarProperty Name="GenYear" ColumnName="GenYear" />
+                <ScalarProperty Name="GenDate" ColumnName="GenDate" />
+                <ScalarProperty Name="Wages" ColumnName="Wages" />
+                <ScalarProperty Name="DaysWorked" ColumnName="DaysWorked" />
+                <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="LoanAmt" ColumnName="LoanAmt" />
+                <ScalarProperty Name="LoanCmt" ColumnName="LoanCmt" />
+                <ScalarProperty Name="AdjAmt" ColumnName="AdjAmt" />
+                <ScalarProperty Name="AdjRemark" ColumnName="AdjRemark" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Frozen" ColumnName="Frozen" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="Instructions" ColumnName="Instructions" />
+                <ScalarProperty Name="ExcludeExcel" ColumnName="ExcludeExcel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayrollAllowance">
+            <EntityTypeMapping TypeName="NTHRModel.PayrollAllowance">
+              <MappingFragment StoreEntitySet="PayrollAllowance">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="GenMonth" ColumnName="GenMonth" />
+                <ScalarProperty Name="GenYear" ColumnName="GenYear" />
+                <ScalarProperty Name="ATID" ColumnName="ATID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Frozen" ColumnName="Frozen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayrollRemarks">
+            <EntityTypeMapping TypeName="NTHRModel.PayrollRemarks">
+              <MappingFragment StoreEntitySet="PayrollRemarks">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="GenMonth" ColumnName="GenMonth" />
+                <ScalarProperty Name="GenYear" ColumnName="GenYear" />
+                <ScalarProperty Name="ExcludeFromExcel" ColumnName="ExcludeFromExcel" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wages">
+            <EntityTypeMapping TypeName="NTHRModel.Wages">
+              <MappingFragment StoreEntitySet="Wages">
+                <ScalarProperty Name="WageID" ColumnName="WageID" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="WEF" ColumnName="WEF" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="FreezePayroll" FunctionName="NTHRModel.Store.FreezePayroll" />
+          <FunctionImportMapping FunctionImportName="GenBonus" FunctionName="NTHRModel.Store.GenBonus" />
+          <FunctionImportMapping FunctionImportName="GenPayroll" FunctionName="NTHRModel.Store.GenPayroll" />
+          <FunctionImportMapping FunctionImportName="Get5yrBonus" FunctionName="NTHRModel.Store.Get5yrBonus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NTHRModel.Get5yrBonus_Result">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="yr1" ColumnName="yr1" />
+                <ScalarProperty Name="yr2" ColumnName="yr2" />
+                <ScalarProperty Name="yr3" ColumnName="yr3" />
+                <ScalarProperty Name="yr4" ColumnName="yr4" />
+                <ScalarProperty Name="ThisYrSys" ColumnName="ThisYrSys" />
+                <ScalarProperty Name="ThisYrUsr" ColumnName="ThisYrUsr" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetLoanHistory" FunctionName="NTHRModel.Store.GetLoanHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NTHRModel.GetLoanHistory_Result">
+                <ScalarProperty Name="LoanID" ColumnName="LoanID" />
+                <ScalarProperty Name="LoanDate" ColumnName="LoanDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PayMonths" ColumnName="PayMonths" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="Cmt" ColumnName="Cmt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="52e36c9c46e2436ba047b047dbef79e9" Name="Diagram1">
+        <EntityTypeShape EntityType="NTHRModel.Advance" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Allowance" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.AllowanceTypes" Width="1.5" PointX="0.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Attendance" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Bonus" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Config" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.DailyAllowance" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.EDocTypes" Width="1.5" PointX="6" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.EmpDocs" Width="1.5" PointX="8.25" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Employees" Width="1.5" PointX="3" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.EmploymentHistory" Width="1.5" PointX="5.25" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.EmpTypes" Width="1.5" PointX="0.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Holidays" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.LoanPay" Width="1.5" PointX="7.5" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Loans" Width="1.5" PointX="5.25" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.LoanSkip" Width="1.5" PointX="7.5" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Payroll" Width="1.5" PointX="5.25" PointY="34.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.PayrollAllowance" Width="1.5" PointX="8.25" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.PayrollRemarks" Width="1.5" PointX="5.25" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="NTHRModel.Wages" Width="1.5" PointX="5.25" PointY="46" IsExpanded="true" />
+        <AssociationConnector Association="NTHRModel.FK_Advance_ToEmps" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_Allowance_ToAT" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_Allowance_ToEmpTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_PayrollAllowance_ToAT" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_Attendance_ToEmps" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_Bonus_ToEmployees" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_DailyAllowance_ToEmps" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_EDocs_ToEdocTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_EmpDocs_ToEmps" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_Employees_ToEmpTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_EmploymentHistory_ToEmployees" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_Loans_ToEmps" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_Payroll_ToEmployees" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_PayrollAllow_ToEmployees" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_PayrollRem_ToEmployees" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_Wages_ToEmps" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_LoanPay_ToLoan" ManuallyRouted="false" />
+        <AssociationConnector Association="NTHRModel.FK_LoanSkip_ToLoan" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

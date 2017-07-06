@@ -1,0 +1,148 @@
+﻿@model PagedList.IPagedList<NunesHR.Employees>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = NunesHR.MyExtensions.GetTitle(GetType().Name);
+}
+
+<h2>@NunesHR.MyExtensions.CamelToSentence(ViewBag.Title)</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Employees", FormMethod.Get))
+{
+    <p>
+        Find by First-name or Nickname: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        &nbsp; : Employee Type: @Html.DropDownList("EmpTypeID","--All Emp Types--")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EmpID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().NickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Mobile)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EmContactNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EmContactName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EmContactReln)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().RegBankAc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().NRegBankAc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().NRegBank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().NRegIFSC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().BonusPayMonth)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().PFno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ESIno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EmpTypes.EmpType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NickName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mobile)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.EmContactNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmContactName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmContactReln)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegBankAc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NRegBankAc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NRegBank)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NRegIFSC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BonusPayMonth)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.PFno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ESIno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpTypes.EmpType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmpID }) |
+            @Html.ActionLink("Card", "EmployeeCard","Payrolls", new { id=item.EmpID },null) 
+            @if (Session["emp"] != null)
+            {
+                @:|
+                @Html.ActionLink("Add", (string)Session["caller"], new { id = item.EmpID })
+            }
+            | <a href="~/Attendances/RollCall/@item.EmpID">Attendance</a>
+            @if (item.EmpTypes.HasDailyAllowance == true)
+                {
+                    @:| <a href = "../Employees/DailyAllowCal/@item.EmpID" > D.allow </a >
+                }
+        </td>
+    </tr>
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, EmpTypeID = ViewBag.EID }))

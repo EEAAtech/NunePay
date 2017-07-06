@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Attendance>
+
+<td>@ViewBag.emp</td>
+@{ 
+    int AttEnu = 0; //Attendance Iterator
+    int total = 0;
+    string monyr = "/" + MyExtensions.MonthFromInt(ViewBag.mon) + "/" + ViewBag.yr;
+    int dim = DateTime.DaysInMonth((int)ViewBag.yr, (int)ViewBag.mon);
+
+    if (Model.Count()>0)
+    {
+
+        for (int i = 1; i <= dim; i++)
+        {
+            if (Model.ElementAt(AttEnu).LeaveDate == DateTime.Parse(i.ToString() + monyr))
+            {
+                AttEnu++; total++;
+                AttEnu = (AttEnu == Model.Count()) ? AttEnu-1 : AttEnu;
+                <td>A</td>    
+            }
+            else
+            {
+                <td></td>
+            }
+        }
+    }
+    else
+    {
+        for (int i = 1; i <= dim; i++)
+        {
+                <td></td>
+        }
+
+    }
+
+    <td>@total</td>
+
+}

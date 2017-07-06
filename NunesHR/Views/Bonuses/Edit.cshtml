@@ -1,0 +1,64 @@
+﻿@model NunesHR.Bonus
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Bonus</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.EmpID)
+        @Html.HiddenFor(model => model.Year)
+        @Html.HiddenFor(model => model.SysBonus)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SysBonus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SysBonus)
+                
+            </div>
+        </div>
+
+        @if (Model.Frozen == false)
+        {
+        <div class="form-group">
+            @Html.LabelFor(model => model.UsrBonus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UsrBonus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UsrBonus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsrBonus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="alert-warning">Bonus already paid. This years bonus for this employee cannot be edited</label>
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.UsrBonus)                    
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

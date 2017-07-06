@@ -1,0 +1,56 @@
+﻿@model PagedList.IPagedList<NunesHR.Get5yrBonus_Result>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = NunesHR.MyExtensions.GetTitle(GetType().Name);
+}
+
+<h2>@NunesHR.MyExtensions.CamelToSentence(ViewBag.Title) </h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EmpName)
+        </th>
+        <th>@DateTime.Today.AddYears(-4).Year</th>
+        <th>@DateTime.Today.AddYears(-3).Year</th>
+        <th>@DateTime.Today.AddYears(-2).Year</th>
+        <th>@DateTime.Today.AddYears(-1).Year</th>
+        <th>
+            @DateTime.Today.Year System
+        </th>
+        <th>
+            @DateTime.Today.Year User
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpName)
+        </td>
+        <td>@Html.DisplayFor(modelItem => item.yr1)</td>
+        <td>@Html.DisplayFor(modelItem => item.yr2)</td>
+        <td>@Html.DisplayFor(modelItem => item.yr3)</td>
+        <td>@Html.DisplayFor(modelItem => item.yr4)</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThisYrSys)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThisYrUsr)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id= item.EmpID, yr = DateTime.Today.Year }) |
+            
+            
+        </td>
+    </tr>
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

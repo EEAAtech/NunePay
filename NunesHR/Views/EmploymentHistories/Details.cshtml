@@ -1,0 +1,57 @@
+﻿@model NunesHR.EmploymentHistory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employment History</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JoinDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JoinDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistrationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExitDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExitDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExitReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExitReason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employees.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employees.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>    
+        <a href="@Request.UrlReferrer.AbsoluteUri">Back to List</a>    
+</p>

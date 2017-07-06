@@ -1,0 +1,92 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #614530;
+    color: white;
+}
+
+.well {
+    background-color: #30271f;
+    color: white;
+}
+a, .navbar-nav, .well-lg {
+    color: #E0A67A;
+}
+
+.myamenu {
+    color: darkslateblue !important;
+    background-color: bisque;
+    text-align: center;
+    -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
+    filter: drop-shadow(5px 5px 5px #222);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+}
+
+.myatag {
+    color: brown;
+    background-color: bisque;
+    text-align: center;
+    padding:3px;
+    border:inset thin;
+    -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
+    filter: drop-shadow(5px 5px 5px #222);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+}
+
+input[type=checkbox] {
+    position: initial !important;
+    margin: initial !important;
+    zoom: 1.5;
+    margin-top: 0px !important;
+    margin-left: 5px !important;
+}
+
+@media print {
+    .eapgbk {
+        page-break-after: always;
+    }
+
+    body {
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+    }
+}
+    /* Set padding to keep content from hitting the edges */
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .MastDet {
+        background-image: url(../EAwell.jpg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        padding-top: 5px;
+        padding-left: 30px;
+        padding-bottom: 10px;
+        padding-right: 15px;
+    }
+
+        .MastDet h2, h3 {
+            text-align: center;
+        }
+
+    .text-danger {
+        background: Yellow;
+    }
+
+    /* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+    .dl-horizontal dt {
+        white-space: normal;
+    }
+
+    /* Set width on the form input elements since they're 100% wide by default */
+    input,
+    select,
+    textarea {
+        max-width: 280px;
+    }

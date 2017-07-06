@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GetLoanHistory_Result>
+
+@{
+    ViewBag.Title = "Loans Outstanding";
+    
+}
+
+<h2>Outstanding Loans on @DateTime.Now.ToString("dd-MMM-yyyy HH:MM")</h2>
+
+    <h3>Loans still being paid off</h3>
+    <table class="table">
+        <tr>
+            <th>
+                Employee
+            </th>
+            <th>
+                Loan ID
+            </th>
+            <th>
+                Loan Date
+            </th>
+            <th>
+                Amount Taken
+            </th>
+            <th>
+                Amount Paid
+            </th>
+            <th>
+                Comment
+            </th>
+            <th>
+                Employee ID
+            </th>
+            <th></th>
+        </tr>
+
+        
+        @foreach (var item in Model)
+        {
+            <tr >
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanDate)
+                </td>
+                <td>Rs.
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>Rs. 
+                    @Html.DisplayFor(modelItem => item.AmountPaid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cmt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpID)
+                </td>
+                <td><a href="~/Loans/Details/@item.LoanID">View Details</a></td>
+            </tr>
+            
+        }
+
+    </table>
+

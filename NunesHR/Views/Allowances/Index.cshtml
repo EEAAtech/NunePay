@@ -1,0 +1,65 @@
+﻿@model IEnumerable<NunesHR.Allowance>
+
+
+@{
+    ViewBag.Title = NunesHR.MyExtensions.GetTitle(GetType().Name);
+}
+
+<h2>@NunesHR.MyExtensions.CamelToSentence(ViewBag.Title)  for @ViewBag.foret  </h2>
+
+<p>
+    @if (ViewBag.EmpTypeID != null)
+    {
+        <a href="~/Allowances/Create/@ViewBag.EmpTypeID">Create</a>
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WEF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PercOfWage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceTypes.AllowanceType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpTypes.EmpType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WEF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercOfWage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowanceTypes.AllowanceType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpTypes.EmpType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AllowanceID }) |
+            
+            
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index","EmpTypes")
+</div>

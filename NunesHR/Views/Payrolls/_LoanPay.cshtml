@@ -1,0 +1,12 @@
+﻿@model IEnumerable<NunesHR.LoanPay>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td></td>
+        <td>@NunesHR.MyExtensions.MonthFromInt(item.GenMonth)</td>        
+        <td>@Html.DisplayFor(modelitem => item.GenYear)</td>
+        <td>@Html.DisplayFor(modelitem => item.Amount)</td>
+        <td></td>
+    </tr>
+}

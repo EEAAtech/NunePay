@@ -1,0 +1,138 @@
+﻿@model NunesHR.Employees
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employees</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NickName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NickName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmContactNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmContactNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmContactReln)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmContactReln)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegBankAc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegBankAc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NRegBankAc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NRegBankAc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NRegBank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NRegBank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NRegIFSC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NRegIFSC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BonusPayMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BonusPayMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PFno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PFno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESIno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESIno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmpTypes.EmpType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmpTypes.EmpType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmpID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

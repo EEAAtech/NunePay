@@ -1,0 +1,117 @@
+﻿@model NunesHR.Loans
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Loan details of Loan ID: @Model.LoanID</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayMonths)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayMonths)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Default)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Default)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DefaultReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DefaultReason)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Employees.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employees.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Request.UrlReferrer.AbsoluteUri">Back to List</a>
+</p>
+<div class="MastDet">
+    <h3>Previous skips for this Loan</h3>
+    <table class="table table-condensed">
+        <tr>
+            <th>
+                Apply Date
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Reason
+            </th>
+        </tr>
+
+        
+        @foreach (var item in Model.LoanSkip)
+        { 
+        <tr>
+            <td>
+                @Html.DisplayFor(i => item.PayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(i => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(i => item.Reason)
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+<p>&nbsp;</p>
+<div class="MastDet">
+    <h3>Payments made for this Loan</h3>
+    <table class="table table-condensed">
+        <tr>
+            <th></th>
+            <th>
+                Month
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Amount
+            </th>
+            <th></th>
+        </tr>
+
+        @Html.Action("LoanPay", "Payrolls", new { LoanID = @Model.LoanID })
+    </table>
+
+</div>

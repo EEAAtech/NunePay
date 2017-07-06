@@ -1,0 +1,47 @@
+﻿@model IEnumerable<NunesHR.EmpDocs>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EDocTypes.EDocType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employees.Name)
+        </th>
+        <th>
+            Employee ID
+        </th>
+        <td></td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiryDate)
+            </td>
+            <td>                
+                    @Html.DisplayFor(modelItem => item.EDocTypes.EDocType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpID)
+            </td>
+            <td>
+                <a href="~/EmpDocs?EmpID=@item.EmpID">
+                    Reveal
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+

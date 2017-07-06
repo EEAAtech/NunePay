@@ -1,0 +1,63 @@
+﻿@model NunesHR.NewEmp
+<link rel='stylesheet' href='~/content/fullcalendar.css' />
+<script src='~/Scripts/moment.min.js'></script>
+<script src='~/Scripts/fullcalendar/fullcalendar.js'></script>
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Daily allowance for: @ViewBag.EmpName</h2>
+
+<div id='calendar' style="height:35%"></div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(function () {
+
+        // page is now ready, initialize the calendar...
+
+        $('#calendar').fullCalendar({
+            // put your options and callbacks here
+            header: {
+                left: 'prev,next,today',
+                center: 'title',
+                right: ''
+            },
+            events: '../DailyAllowCalData?EmpID=@ViewBag.EmpID',
+            height: 430,
+
+            dayClick: function (date, allDay, jsEvent, view) {
+                var url = "../SaveDApay";
+
+                $.post(url, { dt: $.fullCalendar.formatDate(date, 'DD/MMM/YYYY'), emp : @ViewBag.EmpID } )
+                    .success(function (response) {
+                        if (response == 'True') {
+                            $('#calendar').fullCalendar('refetchEvents');
+                            
+                        }
+                        else {
+                            alert('Error, could not save record!');
+                        }
+                    })
+                    .error(function () {
+                        alert('Error, Contact your admin');
+                    });
+                    
+            }
+        });
+     });
+
+    
+
+
+
+
+
+</script>

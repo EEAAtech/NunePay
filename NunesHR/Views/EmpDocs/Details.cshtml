@@ -1,0 +1,59 @@
+﻿@model NunesHR.EmpDocs
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee Documents</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpiryDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Renewed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Renewed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EDocTypes.EDocType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EDocTypes.EDocType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employees.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employees.Name)
+        </dd>
+
+    </dl>
+    
+</div>
+<p>
+    
+    <a href="@Request.UrlReferrer.AbsoluteUri">Back to List</a>
+</p>
+
+<img src="@ViewBag.fn" width=100% />

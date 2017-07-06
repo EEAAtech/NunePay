@@ -1,0 +1,58 @@
+﻿@model NunesHR.Allowance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Allowance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WEF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WEF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PercOfWage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PercOfWage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowanceTypes.AllowanceType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowanceTypes.AllowanceType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmpTypes.EmpType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmpTypes.EmpType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AllowanceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

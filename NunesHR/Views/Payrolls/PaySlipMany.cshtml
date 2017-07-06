@@ -1,0 +1,24 @@
+﻿@model IEnumerable<NunesHR.Payroll>
+
+
+@{
+    ViewBag.Title = "Pay Slip";
+    bool pb=true;
+}
+
+<style>
+    td {
+        padding-left:25px !important;
+    }     
+</style>
+
+    @foreach (NunesHR.Payroll item in Model)
+    {
+         pb = !pb;
+         @Html.DisplayFor(modelItem => item);
+
+         if (pb)
+         {
+            <span class="eapgbk">&nbsp;</span>
+         }
+}

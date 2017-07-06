@@ -1,0 +1,40 @@
+﻿@model List<DA>
+
+@{
+    ViewBag.Title = "Daily Allowance";
+    DateTime dt = ViewBag.dt;
+}
+
+<h2>Daily Allowances</h2>
+<hr />
+<p>&nbsp;</p>
+@using (Html.BeginForm("dailyAllow", "Employees", FormMethod.Get))
+{
+    
+        @: Jump to date : &nbsp;
+        <input type="date" id="dt" name="dt" />
+        
+        <input type="submit" value="Jump" />
+    
+}
+<ul class="pager" style="position: fixed; top: 50px; left:700px; z-index:530; background-color:#614530; ">
+    
+    <li><a href="~/Employees/DailyAllow?dt=@dt.AddDays(-1).ToString("dd-MMM-yyyy")">Previous Day</a></li>
+    <li><label style="font-size:x-large">@dt.ToString("dd MMMM yyyy")</label></li>    
+    <li><a href="~/Employees/DailyAllow?dt=@dt.AddDays(1).ToString("dd-MMM-yyyy")">Next Day</a></li>
+    
+</ul> 
+
+<ul width="680px" class="nav nav-pills nav-stacked">
+    @foreach(var e in Model)
+    {
+        if (e.AllowDate == null)
+        {
+        <li><a href="~/Employees/SaveDailyAllow/@e.EmpID?dt=@dt.ToString("dd-MMM-yyyy")">@e.EmpName</a></li>
+        }
+        else
+        {
+            <li>@e.EmpName has been paid on @e.SaveTime.ToString()</li>
+        }
+    }
+</ul>
