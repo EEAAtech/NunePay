@@ -240,7 +240,6 @@
     <Compile Include="Controllers\LoansController.cs" />
     <Compile Include="Controllers\LoanSkipsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PayrollsController - Copy.cs" />
     <Compile Include="Controllers\PayrollsController.cs" />
     <Compile Include="Controllers\WagesController.cs" />
     <Compile Include="DailyAllowance.cs">

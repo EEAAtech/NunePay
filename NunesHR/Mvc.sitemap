@@ -3,7 +3,7 @@
             xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
-  <mvcSiteMapNode title="Home" controller="Home" action="Index">
+  <mvcSiteMapNode title="Nunes HR" controller="Home" action="Index">
     <mvcSiteMapNode title="Masters" controller="Home" action="Index">
       <mvcSiteMapNode title="Config" controller="Configs" action="Edit" preservedRouteParameters="id" />
       <mvcSiteMapNode title="Allowance Types" controller="AllowanceTypes" action="Index" />
@@ -22,7 +22,15 @@
       <mvcSiteMapNode title="Daily Allowance" controller="Employees" action="DailyAllow" preservedRouteParameters="dt" />
     </mvcSiteMapNode>
 
-  </mvcSiteMapNode>
+    <mvcSiteMapNode title="Payroll" controller="Home" action="Index" >
+      <mvcSiteMapNode title="Bonus" controller="Bonuses" action="Index"  />
+      <mvcSiteMapNode title="Past Bonus" controller="Bonuses" action="oldBonus" preservedRouteParameters="yr" />
+      <mvcSiteMapNode title="Instructions" controller="Payrolls" action="Instructions" />
+      <mvcSiteMapNode title="Adjustments" controller="Payrolls" action="Adjustment" />
+    </mvcSiteMapNode>
+
+
+    </mvcSiteMapNode>
 
 
 </mvcSiteMap>
