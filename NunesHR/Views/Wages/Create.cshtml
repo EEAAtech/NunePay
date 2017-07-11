@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                Daily wage for a 26 day month. If an employee is to get Rs 10,000 per month, his daily wage is 10000/26 
+                Enter the Per day rate for the employee
                 @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </div>
