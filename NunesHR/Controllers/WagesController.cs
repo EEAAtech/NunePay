@@ -95,7 +95,7 @@ namespace NunesHR.Controllers
             {
                 db.Entry(wages).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { EmpID = wages.EmpID });
             }
             ViewBag.EmpID = new SelectList(db.Employees, "EmpID", "Name", wages.EmpID);
             return View(wages);

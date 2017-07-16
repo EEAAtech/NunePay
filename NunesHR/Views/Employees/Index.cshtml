@@ -135,7 +135,9 @@
             | <a href="~/Attendances/RollCall/@item.EmpID">Attendance</a>
             @if (item.EmpTypes.HasDailyAllowance == true)
                 {
-                    @:| <a href = "../Employees/DailyAllowCal/@item.EmpID" > D.allow </a >
+                    @:| 
+                    
+                    <a href="~/Employees/DailyAllowCal/@item.EmpID">D.allow</a>
                 }
         </td>
     </tr>

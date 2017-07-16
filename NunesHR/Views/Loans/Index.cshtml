@@ -16,9 +16,9 @@
     else
     {
         @Html.Action("EmpDets", new { EmpID = ViewBag.EmpID })
-        <button class="btn btn-default"><a href="~/Loans/Create/@ViewBag.EmpID">Create</a></button>
+        <a href="~/Loans/Create/@ViewBag.EmpID">Create</a>
         @: &nbsp;
-        <button class="btn btn-default"><a href="~/Payrolls/LoanHistory/@ViewBag.EmpID">View Loan History</a></button>
+        <a href="~/Payrolls/LoanHistory/@ViewBag.EmpID">View Loan History</a>
     }
 
 </p>
