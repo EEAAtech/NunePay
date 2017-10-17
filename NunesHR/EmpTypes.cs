@@ -24,6 +24,7 @@ namespace NunesHR
         public int EmpTypeID { get; set; }
         public string EmpType { get; set; }
         public bool HasDailyAllowance { get; set; }
+        public bool WhiteColar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Allowance> Allowance { get; set; }

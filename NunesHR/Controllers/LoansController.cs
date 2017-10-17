@@ -87,7 +87,7 @@ namespace NunesHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LoanID,EmpID,LoanDate,Amount,PayMonths,Default")] Loans loans)
+        public ActionResult Create([Bind(Include = "LoanID,EmpID,LoanDate,Amount,PayMonths,Default,EMI")] Loans loans)
         {
             if (ModelState.IsValid)
             {
@@ -124,7 +124,7 @@ namespace NunesHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LoanID,EmpID,LoanDate,Amount,PayMonths,Default, DefaultReason")] Loans loans)
+        public ActionResult Edit([Bind(Include = "LoanID,EmpID,LoanDate,Amount,PayMonths,Default, DefaultReason,EMI")] Loans loans)
         {
             if (ModelState.IsValid)
             {

@@ -43,6 +43,11 @@
         <AssociationConnector Association="NTHRModel.FK_Wages_ToEmps" ManuallyRouted="false" />
         <AssociationConnector Association="NTHRModel.FK_LoanPay_ToLoan" ManuallyRouted="false" />
         <AssociationConnector Association="NTHRModel.FK_LoanSkip_ToLoan" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NTHRModel.CreditDebit" Width="1.5" PointX="5.25" PointY="7" />
+        <AssociationConnector Association="NTHRModel.FK_CreditDebit_ToEmployees" />
+        <EntityTypeShape EntityType="NTHRModel.AllowanceExceptions" Width="1.5" PointX="10.25" PointY="27.25" />
+        <AssociationConnector Association="NTHRModel.FK_AllowanceExceptions_ToAllowanceTypes" />
+        <AssociationConnector Association="NTHRModel.FK_AllowanceExceptions_ToEmployees" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

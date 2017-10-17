@@ -28,12 +28,12 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                 Extra days
             </th>
             <th>
-                Absent Days
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Allowance)
             </th>
             
+            <th>
+                Absent Days
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Advance)
             </th>
@@ -85,15 +85,15 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                     }
                     @dae
                 </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Allowance)
+                </td>
                 <td>
                     @{
                         int dal = (26 - (int)item.DaysWorked) < 1 ? 0 : 26 - (int)item.DaysWorked;
                     }
                     @dal
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Allowance)
                 </td>
                 
                 <td>

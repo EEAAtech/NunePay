@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NTHRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="NTHRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Advance">
           <Key>
             <PropertyRef Name="AdvanceID" />
@@ -24,6 +24,16 @@
           <Property Name="EmpTypeID" Type="int" Nullable="false" />
           <Property Name="PercOfWage" Type="money" />
           <Property Name="Amount" Type="money" />
+        </EntityType>
+        <EntityType Name="AllowanceExceptions">
+          <Key>
+            <PropertyRef Name="AEID" />
+          </Key>
+          <Property Name="AEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" />
+          <Property Name="WEF" Type="date" />
+          <Property Name="ATID" Type="int" />
+          <Property Name="Stop" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AllowanceTypes">
           <Key>
@@ -61,6 +71,18 @@
           <Property Name="RowsPerPage" Type="int" Nullable="false" />
           <Property Name="ImageSavePath" Type="varchar" MaxLength="150" />
           <Property Name="DefaultBank" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CreditDebit">
+          <Key>
+            <PropertyRef Name="CreditDebitID" />
+          </Key>
+          <Property Name="CreditDebitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" />
+          <Property Name="GenMonth" Type="int" Nullable="false" />
+          <Property Name="GenYear" Type="int" Nullable="false" />
+          <Property Name="Credit" Type="decimal" Precision="15" Scale="2" />
+          <Property Name="Debit" Type="decimal" Precision="15" Scale="2" />
+          <Property Name="Narration" Type="varchar" MaxLength="350" />
         </EntityType>
         <EntityType Name="DailyAllowance">
           <Key>
@@ -130,6 +152,7 @@
           <Property Name="EmpTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmpType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="HasDailyAllowance" Type="bit" Nullable="false" />
+          <Property Name="WhiteColar" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Holidays">
           <Key>
@@ -158,6 +181,7 @@
           <Property Name="LoanDate" Type="date" Nullable="false" />
           <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="PayMonths" Type="int" Nullable="false" />
+          <Property Name="EMI" Type="int" />
           <Property Name="PaidOff" Type="bit" Nullable="false" />
           <Property Name="Default" Type="bit" Nullable="false" />
           <Property Name="DefaultReason" Type="varchar" MaxLength="100" />
@@ -269,6 +293,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AllowanceExceptions_ToAllowanceTypes">
+          <End Role="AllowanceTypes" Type="Self.AllowanceTypes" Multiplicity="0..1" />
+          <End Role="AllowanceExceptions" Type="Self.AllowanceExceptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllowanceTypes">
+              <PropertyRef Name="ATID" />
+            </Principal>
+            <Dependent Role="AllowanceExceptions">
+              <PropertyRef Name="ATID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AllowanceExceptions_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="AllowanceExceptions" Type="Self.AllowanceExceptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="AllowanceExceptions">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Attendance_ToEmps">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
@@ -289,6 +337,18 @@
               <PropertyRef Name="EmpID" />
             </Principal>
             <Dependent Role="Bonus">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditDebit_ToEmployees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="CreditDebit" Type="Self.CreditDebit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="CreditDebit">
               <PropertyRef Name="EmpID" />
             </Dependent>
           </ReferentialConstraint>
@@ -452,6 +512,7 @@
         <Function Name="FreezePayroll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="month" Type="int" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="EmpTypeID" Type="int" Mode="In" />
         </Function>
         <Function Name="GenBonus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GenPayroll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -467,10 +528,12 @@
         <EntityContainer Name="NTHRModelStoreContainer">
           <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Allowance" EntityType="Self.Allowance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllowanceExceptions" EntityType="Self.AllowanceExceptions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AllowanceTypes" EntityType="Self.AllowanceTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bonus" EntityType="Self.Bonus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditDebit" EntityType="Self.CreditDebit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DailyAllowance" EntityType="Self.DailyAllowance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EDocTypes" EntityType="Self.EDocTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmpDocs" EntityType="Self.EmpDocs" Schema="dbo" store:Type="Tables" />
@@ -497,6 +560,14 @@
             <End Role="EmpTypes" EntitySet="EmpTypes" />
             <End Role="Allowance" EntitySet="Allowance" />
           </AssociationSet>
+          <AssociationSet Name="FK_AllowanceExceptions_ToAllowanceTypes" Association="Self.FK_AllowanceExceptions_ToAllowanceTypes">
+            <End Role="AllowanceTypes" EntitySet="AllowanceTypes" />
+            <End Role="AllowanceExceptions" EntitySet="AllowanceExceptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AllowanceExceptions_ToEmployees" Association="Self.FK_AllowanceExceptions_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="AllowanceExceptions" EntitySet="AllowanceExceptions" />
+          </AssociationSet>
           <AssociationSet Name="FK_Attendance_ToEmps" Association="Self.FK_Attendance_ToEmps">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Attendance" EntitySet="Attendance" />
@@ -504,6 +575,10 @@
           <AssociationSet Name="FK_Bonus_ToEmployees" Association="Self.FK_Bonus_ToEmployees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Bonus" EntitySet="Bonus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditDebit_ToEmployees" Association="Self.FK_CreditDebit_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="CreditDebit" EntitySet="CreditDebit" />
           </AssociationSet>
           <AssociationSet Name="FK_DailyAllowance_ToEmps" Association="Self.FK_DailyAllowance_ToEmps">
             <End Role="Employees" EntitySet="Employees" />
@@ -558,8 +633,7 @@
             <End Role="Wages" EntitySet="Wages" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NTHRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -594,6 +668,7 @@
           <Property Name="AllowanceType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Allowance" Relationship="Self.FK_Allowance_ToAT" FromRole="AllowanceTypes" ToRole="Allowance" />
           <NavigationProperty Name="PayrollAllowance" Relationship="Self.FK_PayrollAllowance_ToAT" FromRole="AllowanceTypes" ToRole="PayrollAllowance" />
+          <NavigationProperty Name="AllowanceExceptions" Relationship="NTHRModel.FK_AllowanceExceptions_ToAllowanceTypes" FromRole="AllowanceTypes" ToRole="AllowanceExceptions" />
         </EntityType>
         <EntityType Name="Attendance">
           <Key>
@@ -692,6 +767,8 @@
           <NavigationProperty Name="PayrollAllowance" Relationship="Self.FK_PayrollAllow_ToEmployees" FromRole="Employees" ToRole="PayrollAllowance" />
           <NavigationProperty Name="PayrollRemarks" Relationship="Self.FK_PayrollRem_ToEmployees" FromRole="Employees" ToRole="PayrollRemarks" />
           <NavigationProperty Name="Wages" Relationship="Self.FK_Wages_ToEmps" FromRole="Employees" ToRole="Wages" />
+          <NavigationProperty Name="CreditDebit" Relationship="NTHRModel.FK_CreditDebit_ToEmployees" FromRole="Employees" ToRole="CreditDebit" />
+          <NavigationProperty Name="AllowanceExceptions" Relationship="NTHRModel.FK_AllowanceExceptions_ToEmployees" FromRole="Employees" ToRole="AllowanceExceptions" />
         </EntityType>
         <EntityType Name="EmploymentHistory">
           <Key>
@@ -714,6 +791,7 @@
           <Property Name="HasDailyAllowance" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Allowance" Relationship="Self.FK_Allowance_ToEmpTypes" FromRole="EmpTypes" ToRole="Allowance" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_ToEmpTypes" FromRole="EmpTypes" ToRole="Employees" />
+          <Property Name="WhiteColar" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Holidays">
           <Key>
@@ -749,6 +827,7 @@
           <NavigationProperty Name="Employees" Relationship="Self.FK_Loans_ToEmps" FromRole="Loans" ToRole="Employees" />
           <NavigationProperty Name="LoanPay" Relationship="Self.FK_LoanPay_ToLoan" FromRole="Loans" ToRole="LoanPay" />
           <NavigationProperty Name="LoanSkip" Relationship="Self.FK_LoanSkip_ToLoan" FromRole="Loans" ToRole="LoanSkip" />
+          <Property Name="EMI" Type="Int32" />
         </EntityType>
         <EntityType Name="LoanSkip">
           <Key>
@@ -1139,6 +1218,7 @@
           <FunctionImport Name="FreezePayroll">
             <Parameter Name="month" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="EmpTypeID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GenBonus" />
           <FunctionImport Name="GenPayroll">
@@ -1146,11 +1226,25 @@
             <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get5yrBonus" ReturnType="Collection(NTHRModel.Get5yrBonus_Result)">
-            <Parameter Name="yr" Mode="In" Type="Int32" />
+          <Parameter Name="yr" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetLoanHistory" ReturnType="Collection(NTHRModel.GetLoanHistory_Result)">
-            <Parameter Name="EmpID" Mode="In" Type="Int32" />
+          <Parameter Name="EmpID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="CreditDebit" EntityType="NTHRModel.CreditDebit" />
+          <AssociationSet Name="FK_CreditDebit_ToEmployees" Association="NTHRModel.FK_CreditDebit_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="CreditDebit" EntitySet="CreditDebit" />
+          </AssociationSet>
+          <EntitySet Name="AllowanceExceptions" EntityType="NTHRModel.AllowanceExceptions" />
+          <AssociationSet Name="FK_AllowanceExceptions_ToAllowanceTypes" Association="NTHRModel.FK_AllowanceExceptions_ToAllowanceTypes">
+            <End Role="AllowanceTypes" EntitySet="AllowanceTypes" />
+            <End Role="AllowanceExceptions" EntitySet="AllowanceExceptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AllowanceExceptions_ToEmployees" Association="NTHRModel.FK_AllowanceExceptions_ToEmployees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="AllowanceExceptions" EntitySet="AllowanceExceptions" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="Get5yrBonus_Result">
           <Property Type="Int32" Name="EmpID" Nullable="true" />
@@ -1172,6 +1266,67 @@
           <Property Type="String" Name="EmpName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Cmt" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="CreditDebit">
+          <Key>
+            <PropertyRef Name="CreditDebitID" />
+          </Key>
+          <Property Name="CreditDebitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" />
+          <Property Name="GenMonth" Type="Int32" Nullable="false" />
+          <Property Name="GenYear" Type="Int32" Nullable="false" />
+          <Property Name="Credit" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="Debit" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="Narration" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="NTHRModel.FK_CreditDebit_ToEmployees" FromRole="CreditDebit" ToRole="Employees" />
+        </EntityType>
+        <Association Name="FK_CreditDebit_ToEmployees">
+          <End Type="NTHRModel.Employees" Role="Employees" Multiplicity="0..1" />
+          <End Type="NTHRModel.CreditDebit" Role="CreditDebit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="CreditDebit">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AllowanceExceptions">
+          <Key>
+            <PropertyRef Name="AEID" />
+          </Key>
+          <Property Name="AEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" />
+          <Property Name="WEF" Type="DateTime" Precision="0" />
+          <Property Name="ATID" Type="Int32" />
+          <Property Name="Stop" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AllowanceTypes" Relationship="NTHRModel.FK_AllowanceExceptions_ToAllowanceTypes" FromRole="AllowanceExceptions" ToRole="AllowanceTypes" />
+          <NavigationProperty Name="Employees" Relationship="NTHRModel.FK_AllowanceExceptions_ToEmployees" FromRole="AllowanceExceptions" ToRole="Employees" />
+        </EntityType>
+        <Association Name="FK_AllowanceExceptions_ToAllowanceTypes">
+          <End Type="NTHRModel.AllowanceTypes" Role="AllowanceTypes" Multiplicity="0..1" />
+          <End Type="NTHRModel.AllowanceExceptions" Role="AllowanceExceptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllowanceTypes">
+              <PropertyRef Name="ATID" />
+            </Principal>
+            <Dependent Role="AllowanceExceptions">
+              <PropertyRef Name="ATID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AllowanceExceptions_ToEmployees">
+          <End Type="NTHRModel.Employees" Role="Employees" Multiplicity="0..1" />
+          <End Type="NTHRModel.AllowanceExceptions" Role="AllowanceExceptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="AllowanceExceptions">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1307,6 +1462,7 @@
           <EntitySetMapping Name="EmpTypes">
             <EntityTypeMapping TypeName="NTHRModel.EmpTypes">
               <MappingFragment StoreEntitySet="EmpTypes">
+                <ScalarProperty Name="WhiteColar" ColumnName="WhiteColar" />
                 <ScalarProperty Name="EmpTypeID" ColumnName="EmpTypeID" />
                 <ScalarProperty Name="EmpType" ColumnName="EmpType" />
                 <ScalarProperty Name="HasDailyAllowance" ColumnName="HasDailyAllowance" />
@@ -1336,6 +1492,7 @@
           <EntitySetMapping Name="Loans">
             <EntityTypeMapping TypeName="NTHRModel.Loans">
               <MappingFragment StoreEntitySet="Loans">
+                <ScalarProperty Name="EMI" ColumnName="EMI" />
                 <ScalarProperty Name="LoanID" ColumnName="LoanID" />
                 <ScalarProperty Name="EmpID" ColumnName="EmpID" />
                 <ScalarProperty Name="LoanDate" ColumnName="LoanDate" />
@@ -1447,6 +1604,30 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="CreditDebit">
+            <EntityTypeMapping TypeName="NTHRModel.CreditDebit">
+              <MappingFragment StoreEntitySet="CreditDebit">
+                <ScalarProperty Name="Narration" ColumnName="Narration" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="GenYear" ColumnName="GenYear" />
+                <ScalarProperty Name="GenMonth" ColumnName="GenMonth" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="CreditDebitID" ColumnName="CreditDebitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllowanceExceptions">
+            <EntityTypeMapping TypeName="NTHRModel.AllowanceExceptions">
+              <MappingFragment StoreEntitySet="AllowanceExceptions">
+                <ScalarProperty Name="Stop" ColumnName="Stop" />
+                <ScalarProperty Name="ATID" ColumnName="ATID" />
+                <ScalarProperty Name="WEF" ColumnName="WEF" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="AEID" ColumnName="AEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

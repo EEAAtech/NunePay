@@ -15,6 +15,7 @@
     <a href="~/Advances?EmpID=@Model.EmpID"><input class="btn btn-default" type="button" value="Advance" title="Advance money given to this employee" /></a>
     <a href="~/Payrolls/PaySlipsSRq?EmpID=@Model.EmpID" target="_blank"><input class="btn btn-default" type="button" value="Payslip" title="Print an individual payslip" /></a>
     <a href="~/Payrolls/EmployeeCard/@Model.EmpID?Print=true" target="_blank"><input class="btn btn-default" type="button" value="Print Card" title="Print Employee Card" /></a>
+    <a href="~/Payrolls/CreditDebit/@Model.EmpID" target="_blank"><input class="btn btn-default" type="button" value="CreditDebit" title="Staff Credit Debit" /></a>
 </div>
 <div>
     @Html.ActionLink("Back to List", "Index")

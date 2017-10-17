@@ -26,6 +26,8 @@
       <mvcSiteMapNode title="Bonus" controller="Bonuses" action="Index"  />
       <mvcSiteMapNode title="Past Bonus" controller="Bonuses" action="oldBonus" preservedRouteParameters="yr" />
       <mvcSiteMapNode title="Instructions" controller="Payrolls" action="Instructions" />
+      <mvcSiteMapNode title="Credit Debit" controller="Payrolls" action="CreditDebit" preservedRouteParameters="id" />
+      <mvcSiteMapNode title="AllowanceExceptions" controller="AllowanceExceptions" action="Index" />
       <mvcSiteMapNode title="Adjustments" controller="Payrolls" action="Adjustment" />
     </mvcSiteMapNode>
 

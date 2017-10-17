@@ -301,6 +301,16 @@ namespace NunesHR
         [Display(Name = "Reason")]
         public String AdjRemark;
     }
-        
+
+    public class AllowanceExceptionsMetadata
+    {
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "With Effect From")]
+        [Required]
+        public DateTime WEF;
+    }
+
+
 
 }

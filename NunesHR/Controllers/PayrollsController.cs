@@ -232,12 +232,36 @@ namespace NunesHR.Controllers
 
         // GET: Payrolls/Freeze Payroll
         [Authorize(Roles = "Boss, HR")]
-        public ActionResult FreezePayroll()
+        public ActionResult FreezePayroll(int? Mon, int? Yr)
         {
             MakeMonYrRq();
+            ViewData["EmpTypeID"] = new SelectList(db.EmpTypes, "EmpTypeID", "EmpType");
+            ViewBag.EmpTypeStatus = (Mon.HasValue) ? getFreezeEmpTypeStatus((int)Mon, (int)Yr) : "";
+
 
             return View();
         }
+
+        public string getFreezeEmpTypeStatus(int Mon, int Yr)
+        {
+            var et = db.EmpTypes.ToList();
+            string liquid = "";
+            string solid = "";
+
+            foreach(var i in et)
+            {
+                if (db.Payroll.Any(py => py.Frozen == true && py.GenMonth == Mon && py.GenYear == Yr && py.Employees.EmpTypeID ==i.EmpTypeID))
+                    solid += i.EmpType + ", ";
+                else
+                    liquid += i.EmpType + ", ";
+            }
+            
+            solid = solid.Length>0? solid.Substring(0, solid.Length - 2) + " are frozen and the following are ":"";            
+            liquid = (liquid.Length > 0) ? liquid.Substring(0, liquid.Length - 2) : " : None!";
+
+            return $"{solid} not yet frozen {liquid}";
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -246,11 +270,13 @@ namespace NunesHR.Controllers
         {
             int mon = int.Parse(fm["PayMonth"]);
             int yr = int.Parse(fm["PayYear"]);
-
-            var genpay = db.FreezePayroll(mon, yr);
-            return RedirectToAction("Index", new { mon = mon, yr = yr });
+            int EmpTypeID = int.Parse(fm["EmpTypeID"]);
+            var genpay = db.FreezePayroll(mon, yr, EmpTypeID);
+            return RedirectToAction("FreezePayroll", new { Mon = mon, Yr = yr });
 
         }
+
+       
 
         [Authorize(Roles = "Boss, HR,Anon")]
         public ActionResult LoanHistory(int id)
@@ -540,7 +566,7 @@ namespace NunesHR.Controllers
                             " FROM Employees  e, EmploymentHistory eh, Payroll p " +
                              " WHERE e.EmpID = eh.EmpID AND e.EmpID = p.EmpID AND e.CatAB = 'A' AND e.IsHDFC = 1 " +
                              " AND p.GenMonth = " + PayMonth + " AND p.GenYear =  " + PayYear +
-                             " AND p.Frozen = 1 AND eh.ExitDate IS NULL AND p.ExcludeExcel=0 ORDER BY e.Name ";
+                             " AND p.Frozen = 1 AND eh.ExitDate IS NULL AND p.ExcludeExcel=0 AND p.AdjAmt IS NOT NULL ORDER BY e.Name ";
             IEnumerable<RegExport> todth = db.Database.SqlQuery<RegExport>(MyQry).ToList();
 
             Response.ClearContent();
@@ -568,7 +594,7 @@ namespace NunesHR.Controllers
                             " FROM Employees  e, EmploymentHistory eh, Payroll p " +
                              " WHERE e.EmpID = eh.EmpID AND e.EmpID = p.EmpID AND COALESCE(e.IsHDFC,0) = 0 AND e.CatAB='A' " +
                              " AND p.GenMonth = " + PayMonth + " AND p.GenYear =  " + PayYear +
-                             " AND p.Frozen = 1 AND eh.ExitDate IS NULL AND p.ExcludeExcel=0 ORDER BY e.Name ";
+                             " AND p.Frozen = 1 AND eh.ExitDate IS NULL AND p.ExcludeExcel=0 AND p.AdjAmt IS NOT NULL ORDER BY e.Name ";
             IEnumerable<NonRegExport> todt = db.Database.SqlQuery<NonRegExport>(MyQry).ToList();
 
 
@@ -633,6 +659,42 @@ namespace NunesHR.Controllers
                 }
             }
             return RedirectToAction("Instructions", new { mon = tpr.GenMonth, yr = tpr.GenYear });
+        }
+
+
+        [Authorize(Roles = "Boss, HR")]
+        public ActionResult CreditDebit(int id, int? mon, int? yr)
+        {
+            if (mon == null || yr == null)
+            { //default to last month 
+                mon = DateTime.Today.Month - 1;
+                yr = DateTime.Today.AddMonths(-1).Year;
+            }
+
+            ViewBag.mon = mon; ViewBag.yr = yr; ViewBag.EmpID = id;
+            MakeMonYrRq();
+            
+            ViewBag.Adjs = db.CreditDebit.Where(c => c.EmpID == id && c.GenMonth == mon && c.GenYear == yr);
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Boss, HR")]
+        public ActionResult CreditDebit([Bind(Include = "EmpID, Credit, Debit, GenMonth, GenYear,Narration")] CreditDebit cd)
+        {
+            if (ModelState.IsValid)
+            {
+                db.CreditDebit.Add(cd);
+                db.SaveChanges();                
+            }
+            ViewBag.mon = cd.GenMonth; ViewBag.yr = cd.GenYear; ViewBag.EmpID = cd.EmpID;
+            MakeMonYrRq();
+
+            ViewBag.Adjs = db.CreditDebit.Where(c => c.EmpID == cd.EmpID && c.GenMonth == cd.GenMonth && c.GenYear == cd.GenYear);
+
+            return View("CreditDebit");
         }
 
 

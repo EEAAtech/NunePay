@@ -32,13 +32,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().LoanDate)
+            Loan Disburse Date
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Amount)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().PayMonths)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EMI)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Default)
@@ -65,6 +68,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PayMonths)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EMI)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Default)

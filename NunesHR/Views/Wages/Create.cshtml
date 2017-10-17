@@ -19,7 +19,7 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WEF, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.WEF, htmlAttributes: new { @class = "control-label col-md-2" })            
             <div class="col-md-10">
                 @Html.EditorFor(model => model.WEF, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.WEF, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                Enter the Per day rate for the employee
+                Enter the "per month" rate for the employee. The software will automatically calculate the daily wage
                 @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </div>

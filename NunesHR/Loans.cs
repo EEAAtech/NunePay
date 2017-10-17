@@ -29,6 +29,7 @@ namespace NunesHR
         public bool PaidOff { get; set; }
         public bool Default { get; set; }
         public string DefaultReason { get; set; }
+        public Nullable<int> EMI { get; set; }
     
         public virtual Employees Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -47,8 +47,10 @@ namespace NunesHR
         public virtual DbSet<PayrollAllowance> PayrollAllowance { get; set; }
         public virtual DbSet<PayrollRemarks> PayrollRemarks { get; set; }
         public virtual DbSet<Wages> Wages { get; set; }
+        public virtual DbSet<CreditDebit> CreditDebit { get; set; }
+        public virtual DbSet<AllowanceExceptions> AllowanceExceptions { get; set; }
     
-        public virtual int FreezePayroll(Nullable<int> month, Nullable<int> year)
+        public virtual int FreezePayroll(Nullable<int> month, Nullable<int> year, Nullable<int> empTypeID)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
@@ -58,7 +60,11 @@ namespace NunesHR
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FreezePayroll", monthParameter, yearParameter);
+            var empTypeIDParameter = empTypeID.HasValue ?
+                new ObjectParameter("EmpTypeID", empTypeID) :
+                new ObjectParameter("EmpTypeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FreezePayroll", monthParameter, yearParameter, empTypeIDParameter);
         }
     
         public virtual int GenBonus()

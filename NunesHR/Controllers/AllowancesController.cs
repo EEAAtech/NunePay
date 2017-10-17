@@ -93,7 +93,7 @@ namespace NunesHR.Controllers
             {
                 db.Entry(allowance).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = allowance.EmpTypeID});
             }
             ViewBag.ATID = new SelectList(db.AllowanceTypes, "ATID", "AllowanceType", allowance.ATID);
             ViewBag.EmpTypeID = new SelectList(db.EmpTypes, "EmpTypeID", "EmpType", allowance.EmpTypeID);

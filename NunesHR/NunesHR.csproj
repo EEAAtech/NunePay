@@ -206,6 +206,9 @@
     <Compile Include="Allowance.cs">
       <DependentUpon>NunesHRdb.tt</DependentUpon>
     </Compile>
+    <Compile Include="AllowanceExceptions.cs">
+      <DependentUpon>NunesHRdb.tt</DependentUpon>
+    </Compile>
     <Compile Include="AllowanceTypes.cs">
       <DependentUpon>NunesHRdb.tt</DependentUpon>
     </Compile>
@@ -225,6 +228,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvancesController.cs" />
+    <Compile Include="Controllers\AllowanceExceptionsController.cs" />
     <Compile Include="Controllers\AllowancesController.cs" />
     <Compile Include="Controllers\AllowanceTypesController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
@@ -242,6 +246,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PayrollsController.cs" />
     <Compile Include="Controllers\WagesController.cs" />
+    <Compile Include="CreditDebit.cs">
+      <DependentUpon>NunesHRdb.tt</DependentUpon>
+    </Compile>
     <Compile Include="DailyAllowance.cs">
       <DependentUpon>NunesHRdb.tt</DependentUpon>
     </Compile>
@@ -639,6 +646,12 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
+    <Content Include="Views\Payrolls\CreditDebit.cshtml" />
+    <Content Include="Views\AllowanceExceptions\Create.cshtml" />
+    <Content Include="Views\AllowanceExceptions\Delete.cshtml" />
+    <Content Include="Views\AllowanceExceptions\Details.cshtml" />
+    <Content Include="Views\AllowanceExceptions\Edit.cshtml" />
+    <Content Include="Views\AllowanceExceptions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

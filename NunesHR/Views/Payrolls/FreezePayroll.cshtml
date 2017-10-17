@@ -41,17 +41,61 @@
             </div>
         </div>
 
-       
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Freeze" class="btn btn-default" />
+            <div class="col-md-2"></div>
+            <label id="EmpTypeStatus" class="control-label col-md-10" style="color:white; font-size:larger; text-align:left;">@ViewBag.EmpTypeStatus</label>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select Employee Types</label>
+            <div class="col-md-10" id="MultiSelDiv">
+                @Html.DropDownList("EmpTypeID", null, htmlAttributes: new { @class = "form-control col-md-2" })
+                @Html.ValidationMessageFor(model => model.GenYear, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Freeze" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
 }
 
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+
+    <script>
+        $(document).ready(function () {
+            $('#PayYear').change(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("getFreezeEmpTypeStatus")',
+                data: { Mon: $('#PayMonth').val(), Yr: $('#PayYear').val() },
+                success: function (result) {
+                    $('#EmpTypeStatus').text(result);
+                }
+            }
+            )
+        });
+        });
+
+        $(document).ready(function () {
+            $('#PayMonth').change(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("getFreezeEmpTypeStatus")',
+                data: { Mon: $('#PayMonth').val(), Yr: $('#PayYear').val() },
+                success: function (result) {
+                    $('#EmpTypeStatus').text(result);
+                }
+            }
+            )
+        });
+    });
+    </script>
+   }
+

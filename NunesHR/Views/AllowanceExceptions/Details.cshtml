@@ -1,0 +1,50 @@
+﻿@model NunesHR.AllowanceExceptions
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AllowanceExceptions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WEF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WEF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stop)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowanceTypes.AllowanceType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowanceTypes.AllowanceType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employees.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employees.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AEID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

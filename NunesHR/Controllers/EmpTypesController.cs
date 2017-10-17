@@ -45,7 +45,7 @@ namespace NunesHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmpTypeID,EmpType,HasDailyAllowance")] EmpTypes empTypes)
+        public ActionResult Create([Bind(Include = "EmpTypeID,EmpType,HasDailyAllowance, WhiteColar")] EmpTypes empTypes)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace NunesHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmpTypeID,EmpType,HasDailyAllowance")] EmpTypes empTypes)
+        public ActionResult Edit([Bind(Include = "EmpTypeID,EmpType,HasDailyAllowance,WhiteColar")] EmpTypes empTypes)
         {
             if (ModelState.IsValid)
             {

@@ -50,7 +50,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="@Request.UrlReferrer.AbsoluteUri">Back to List</a>
 </div>
 
 @section Scripts {

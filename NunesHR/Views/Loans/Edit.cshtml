@@ -16,8 +16,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.LoanID)
-        @Html.HiddenFor(model => model.EmpID)
-        @Html.HiddenFor(model => model.LoanDate)
+        @Html.HiddenFor(model => model.EmpID)        
         @Html.HiddenFor(model => model.Amount)
 
         <div class="form-group">
@@ -29,9 +28,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LoanDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LoanDate, "Loan Disburse Date", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.LoanDate)
+                @Html.EditorFor(model => model.LoanDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LoanDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,6 +48,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PayMonths, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PayMonths, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMI, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EMI, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EMI, "", new { @class = "text-danger" })
             </div>
         </div>
 

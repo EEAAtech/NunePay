@@ -59,6 +59,7 @@ namespace NunesHR.Controllers
         {
             if (ModelState.IsValid)
             {
+                wages.Amount = wages.Amount / 30;//the user enters per month rates but the system uses daily wages
                 db.Wages.Add(wages);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { EmpID = wages.EmpID } );
@@ -81,6 +82,7 @@ namespace NunesHR.Controllers
                 return HttpNotFound();
             }
             ViewBag.EmpID = new SelectList(db.Employees, "EmpID", "Name", wages.EmpID);
+            wages.Amount = wages.Amount * 30; //the user enters per month rates but the system uses daily wages
             return View(wages);
         }
 
@@ -93,6 +95,7 @@ namespace NunesHR.Controllers
         {
             if (ModelState.IsValid)
             {
+                wages.Amount = wages.Amount / 30;//the user enters per month rates but the system uses daily wages
                 db.Entry(wages).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { EmpID = wages.EmpID });

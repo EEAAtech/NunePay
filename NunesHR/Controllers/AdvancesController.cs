@@ -63,12 +63,12 @@ namespace NunesHR.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", new { EmpID = advance.EmpID });
             }
-
-            ViewBag.EmpID = new SelectList(db.Employees, "EmpID", "Name", advance.EmpID);
+                        
             return View(advance);
         }
 
         // GET: Advances/Edit/5
+        [Authorize(Roles = "Boss")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,9 +95,9 @@ namespace NunesHR.Controllers
             {
                 db.Entry(advance).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { EmpID = advance.EmpID });
             }
-            ViewBag.EmpID = new SelectList(db.Employees, "EmpID", "Name", advance.EmpID);
+            
             return View(advance);
         }
 

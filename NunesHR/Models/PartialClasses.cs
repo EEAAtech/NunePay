@@ -78,6 +78,11 @@ namespace NunesHR
     {
     }
 
+    [MetadataType(typeof(AllowanceExceptionsMetadata))]
+    public partial class AllowanceExceptions
+    {
+    }
+
     public class DailyAllowEvent
     {
         public string title { get; set; }

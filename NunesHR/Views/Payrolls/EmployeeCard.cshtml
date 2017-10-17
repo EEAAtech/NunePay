@@ -16,6 +16,7 @@
     <a href="~/Advances?EmpID=@ViewBag.EmpID"><input class="btn btn-default" type="button" value="Advance" title="Advance money given to this employee" /></a>
     <a href="~/Payrolls/PaySlipsSRq?EmpID=@ViewBag.EmpID" target="_blank"><input class="btn btn-default" type="button" value="Payslip" title="Print an individual payslip" /></a>
     <a href="~/Payrolls/EmployeeCard/@ViewBag.EmpID?Print=true" target="_blank"><input class="btn btn-default" type="button" value="Print Card" title="Print Employee Card" /></a>
+    <a href="~/Payrolls/CreditDebit/@ViewBag.EmpID" target="_blank"><input class="btn btn-default" type="button" value="CreditDebit" title="Staff Credit Debit" /></a>
 </div>
 <h2>@Model.emp.Name </h2>
 Generation Date: @DateTime.Now.ToString("dd-MMM-yyyy HH:mm")

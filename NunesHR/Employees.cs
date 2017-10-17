@@ -28,6 +28,8 @@ namespace NunesHR
             this.PayrollAllowance = new HashSet<PayrollAllowance>();
             this.PayrollRemarks = new HashSet<PayrollRemarks>();
             this.Wages = new HashSet<Wages>();
+            this.CreditDebit = new HashSet<CreditDebit>();
+            this.AllowanceExceptions = new HashSet<AllowanceExceptions>();
         }
     
         public int EmpID { get; set; }
@@ -72,5 +74,9 @@ namespace NunesHR
         public virtual ICollection<PayrollRemarks> PayrollRemarks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wages> Wages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CreditDebit> CreditDebit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AllowanceExceptions> AllowanceExceptions { get; set; }
     }
 }

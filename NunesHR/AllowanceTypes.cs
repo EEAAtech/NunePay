@@ -19,6 +19,7 @@ namespace NunesHR
         {
             this.Allowance = new HashSet<Allowance>();
             this.PayrollAllowance = new HashSet<PayrollAllowance>();
+            this.AllowanceExceptions = new HashSet<AllowanceExceptions>();
         }
     
         public int ATID { get; set; }
@@ -28,5 +29,7 @@ namespace NunesHR
         public virtual ICollection<Allowance> Allowance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PayrollAllowance> PayrollAllowance { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AllowanceExceptions> AllowanceExceptions { get; set; }
     }
 }
