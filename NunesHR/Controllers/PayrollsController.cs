@@ -212,7 +212,7 @@ namespace NunesHR.Controllers
             MakeMonYrRq();
             ViewBag.Title = "Generate Payroll";
             ViewBag.action = "GenPay";
-
+            
             return View("MonYrRq");
             
         }
@@ -224,6 +224,10 @@ namespace NunesHR.Controllers
         {
             int mon = int.Parse(fm["PayMonth"]);
             int yr = int.Parse(fm["PayYear"]);
+
+            //If there are any incomplete Payroll instructions redirect to that page            
+            if (db.Payroll.Any(i => i.Instructions.Length > 0 && i.InstructionCompleted == false && i.GenMonth == mon && i.GenYear == yr))
+                return RedirectToAction("Instructions", new { mon = mon, yr = yr });
 
             var genpay = db.GenPayroll(mon, yr);
             return RedirectToAction("Index", new { mon = mon, yr = yr });
@@ -654,6 +658,8 @@ namespace NunesHR.Controllers
                     tpr = db.Payroll.FirstOrDefault(p => p.GenMonth == pr.GenMonth && p.GenYear == pr.GenYear && p.EmpID == pr.EmpID);
                     tpr.Instructions = pr.Instructions;
                     tpr.ExcludeExcel = pr.ExcludeExcel;
+                    if (pr.Instructions?.Length>0)
+                        tpr.InstructionCompleted = pr.InstructionCompleted ??false;
                     db.Entry(tpr).State = EntityState.Modified;
                     db.SaveChanges();
                 }

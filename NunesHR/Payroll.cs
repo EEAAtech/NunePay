@@ -33,6 +33,7 @@ namespace NunesHR
         public string BankAccount { get; set; }
         public string Instructions { get; set; }
         public bool ExcludeExcel { get; set; }
+        public Nullable<bool> InstructionCompleted { get; set; }
     
         public virtual Employees Employees { get; set; }
     }

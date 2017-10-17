@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="52e36c9c46e2436ba047b047dbef79e9" Name="Diagram1">
+      <Diagram DiagramId="52e36c9c46e2436ba047b047dbef79e9" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="NTHRModel.Advance" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="NTHRModel.Allowance" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="NTHRModel.AllowanceTypes" Width="1.5" PointX="0.75" PointY="19" IsExpanded="true" />

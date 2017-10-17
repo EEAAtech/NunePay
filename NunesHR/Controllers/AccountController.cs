@@ -229,7 +229,7 @@ namespace NunesHR.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Boss")]
+        [Authorize(Roles = "Owner")]
         public ActionResult GivePrivilage()
         {
             List<ApplicationUser> usrs = UserManager.Users.ToList();
@@ -268,14 +268,14 @@ namespace NunesHR.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Boss")]
+        [Authorize(Roles = "Owner")]
         public ActionResult SaveRoles(string id, string rl)
         {
             UserManager.AddToRole(id, rl);
             return RedirectToAction("GivePrivilage");
         }
 
-        [Authorize(Roles = "Boss")]
+        [Authorize(Roles = "Owner")]
         public ActionResult PurgeRoles(string id, string rl)
         {
             UserManager.RemoveFromRole(id, rl);

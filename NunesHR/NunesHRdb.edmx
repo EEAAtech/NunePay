@@ -181,10 +181,10 @@
           <Property Name="LoanDate" Type="date" Nullable="false" />
           <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="PayMonths" Type="int" Nullable="false" />
-          <Property Name="EMI" Type="int" />
           <Property Name="PaidOff" Type="bit" Nullable="false" />
           <Property Name="Default" Type="bit" Nullable="false" />
           <Property Name="DefaultReason" Type="varchar" MaxLength="100" />
+          <Property Name="EMI" Type="int" />
         </EntityType>
         <EntityType Name="LoanSkip">
           <Key>
@@ -221,6 +221,7 @@
           <Property Name="BankAccount" Type="varchar" MaxLength="50" />
           <Property Name="Instructions" Type="varchar(max)" />
           <Property Name="ExcludeExcel" Type="bit" Nullable="false" />
+          <Property Name="InstructionCompleted" Type="bit" />
         </EntityType>
         <EntityType Name="PayrollAllowance">
           <Key>
@@ -866,6 +867,7 @@
           <Property Name="Instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ExcludeExcel" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Payroll_ToEmployees" FromRole="Payroll" ToRole="Employees" />
+          <Property Name="InstructionCompleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="PayrollAllowance">
           <Key>
@@ -1128,7 +1130,7 @@
           <EntitySet Name="AllowanceTypes" EntityType="Self.AllowanceTypes" />
           <EntitySet Name="Attendance" EntityType="Self.Attendance" />
           <EntitySet Name="Bonus" EntityType="Self.Bonus" />
-          <EntitySet Name="Config" EntityType="Self.Config" />
+          <EntitySet Name="Config" EntityType="NTHRModel.Config" />
           <EntitySet Name="DailyAllowance" EntityType="Self.DailyAllowance" />
           <EntitySet Name="EDocTypes" EntityType="Self.EDocTypes" />
           <EntitySet Name="EmpDocs" EntityType="Self.EmpDocs" />
@@ -1518,6 +1520,7 @@
           <EntitySetMapping Name="Payroll">
             <EntityTypeMapping TypeName="NTHRModel.Payroll">
               <MappingFragment StoreEntitySet="Payroll">
+                <ScalarProperty Name="InstructionCompleted" ColumnName="InstructionCompleted" />
                 <ScalarProperty Name="EmpID" ColumnName="EmpID" />
                 <ScalarProperty Name="GenMonth" ColumnName="GenMonth" />
                 <ScalarProperty Name="GenYear" ColumnName="GenYear" />
