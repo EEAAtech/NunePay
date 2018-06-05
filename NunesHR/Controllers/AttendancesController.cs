@@ -39,10 +39,14 @@ namespace NunesHR.Controllers
             }
 
             //Prepare to enter objects for current month
-            if (StartMonth==12)
+            if (StartMonth == 12)
+            {
                 StartYear++;
-            
-            StartMonth++; 
+                StartMonth = 1;
+            }
+            else
+                StartMonth++; 
+
             ViewBag.Mon2 =  MyExtensions.MonthFromInt(StartMonth) + " " + StartYear;
 
             ViewBag.DaysInCurrMon = DateTime.DaysInMonth(StartYear, StartMonth);

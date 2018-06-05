@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NunesHR.EmpDocs>
+﻿@model IEnumerable<NunesHR.RenewDocus>
 
 
 <table class="table">
@@ -7,10 +7,10 @@
             @Html.DisplayNameFor(model => model.ExpiryDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EDocTypes.EDocType)
+            Type
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Employees.Name)
+            Name
         </th>
         <th>
             Employee ID
@@ -25,10 +25,10 @@
                 @Html.DisplayFor(modelItem => item.ExpiryDate)
             </td>
             <td>                
-                    @Html.DisplayFor(modelItem => item.EDocTypes.EDocType)
+                    @Html.DisplayFor(modelItem => item.EDocType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Employees.Name)
+                @Html.DisplayFor(modelItem => item.EmpName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EmpID)

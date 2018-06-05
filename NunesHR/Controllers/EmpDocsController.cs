@@ -195,8 +195,10 @@ namespace NunesHR.Controllers
         {
             int dbe = db.Config.First().DocExpirePreWarning ?? 0;
             DateTime WarnDate = DateTime.Today.AddDays(dbe);
-            var de = db.EmpDocs.Where(d => d.Renewed == false && d.ExpiryDate< WarnDate ).OrderBy(d => d.ExpiryDate).ToList();
+            var de = db.Database.SqlQuery<RenewDocus>($"Select ed.EmpID,ed.ExpiryDate,t.EDocType, e.Name as EmpName from EmpDocs ed, EmploymentHistory h, EDocTypes t,Employees e " +
+                $"where ed.EmpID=h.EmpID and ed.EmpID=e.EmpID and ed.EDocTypeID=t.EDocTypeID and h.ExitDate is null and ed.Renewed=0 and ed.ExpiryDate<'{WarnDate:yyyy-MM-dd}' order by ed.ExpiryDate").ToList();
             return PartialView("_DocsExpire", de);
+            
         }
 
         protected override void Dispose(bool disposing)

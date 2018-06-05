@@ -201,6 +201,14 @@ namespace NunesHR
         public Nullable<System.DateTime> ExpiryDate { get; set; }
     }
 
+    public class RenewDocus
+    {
+        public int EmpID { get; set; }
+        public DateTime ExpiryDate { get; set; }
+        public string EDocType { get; set; }
+        public string EmpName { get; set; }
+    }
+
     /// <summary>
     /// For marking Leave
     /// </summary>
